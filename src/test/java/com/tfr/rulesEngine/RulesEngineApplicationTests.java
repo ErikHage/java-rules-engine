@@ -1,4 +1,4 @@
-package com.tfr.RulesEngine;
+package com.tfr.rulesEngine;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
