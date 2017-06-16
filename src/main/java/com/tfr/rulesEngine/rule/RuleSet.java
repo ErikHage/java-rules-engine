@@ -8,8 +8,11 @@ import java.util.Set;
  */
 public interface RuleSet<I,O> {
 
-    String getSetName();
+    String getName();
     Set<Rule<I, O>> getRules();
-    boolean addRule(Rule<I,O> rule);
+
+    boolean add(Rule<I,O> rule);
+    boolean contains(Rule<I,O> rule);
+    boolean remove(Rule<I,O> rule);
 
 }

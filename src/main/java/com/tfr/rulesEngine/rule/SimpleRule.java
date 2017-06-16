@@ -25,28 +25,44 @@ public class SimpleRule<I,O> implements Rule<I,O> {
         this.function = function;
     }
 
-    public boolean evaluate(I input) {
-        return predicate.test(input);
-    }
-
-    public O getResult(I input) {
-        return function.apply(input);
-    }
-
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public int getPriority() {
         return priority;
     }
 
+    @Override
     public Predicate<I> getPredicate() {
         return predicate;
     }
 
+    @Override
     public Function<I,O> getFunction() {
         return function;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SimpleRule<?, ?> that = (SimpleRule<?, ?>) o;
+
+        return name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public int compareTo(Rule<I, O> other) {
+        return other.getPriority() - this.priority;
     }
 
     @Override
@@ -56,4 +72,5 @@ public class SimpleRule<I,O> implements Rule<I,O> {
                 ", priority=" + priority +
                 '}';
     }
+
 }
