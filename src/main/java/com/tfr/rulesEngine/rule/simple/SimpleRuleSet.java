@@ -1,5 +1,9 @@
-package com.tfr.rulesEngine.rule;
+package com.tfr.rulesEngine.rule.simple;
 
+import com.tfr.rulesEngine.rule.Rule;
+import com.tfr.rulesEngine.rule.RuleSet;
+
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -7,10 +11,10 @@ import java.util.TreeSet;
  *
  * Created by Erik on 6/14/2017.
  */
-public class SimpleRuleSet<I,O> implements RuleSet<I,O> {
+public class SimpleRuleSet<R extends Rule> implements RuleSet<R> {
 
     private final String name;
-    private final Set<Rule<I,O>> rules;
+    private final Set<R> rules;
 
     public SimpleRuleSet(String name) {
         this.name = name;
@@ -22,12 +26,12 @@ public class SimpleRuleSet<I,O> implements RuleSet<I,O> {
         return name;
     }
 
-    public Set<Rule<I, O>> getRules() {
+    public Set<R> getRules() {
         return rules;
     }
 
     @Override
-    public boolean add(Rule<I, O> rule) {
+    public boolean add(R rule) {
         if(rules.contains(rule)) {
             return false;
         }
@@ -36,13 +40,17 @@ public class SimpleRuleSet<I,O> implements RuleSet<I,O> {
     }
 
     @Override
-    public boolean contains(Rule<I,O> rule) {
+    public boolean contains(R rule) {
         return rules.contains(rule);
     }
 
     @Override
-    public boolean remove(Rule<I,O> rule) {
+    public boolean remove(R rule) {
         return rules.remove(rule);
     }
 
+    @Override
+    public Iterator<R> iterator() {
+        return rules.iterator();
+    }
 }

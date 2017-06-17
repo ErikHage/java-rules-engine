@@ -1,4 +1,6 @@
-package com.tfr.rulesEngine.rule;
+package com.tfr.rulesEngine.rule.simple;
+
+import com.tfr.rulesEngine.rule.Rule;
 
 import java.util.function.Function;
 import java.util.function.Predicate;
