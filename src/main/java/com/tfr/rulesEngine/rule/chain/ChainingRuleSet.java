@@ -1,37 +1,42 @@
-package com.tfr.rulesEngine.rule.simple;
+package com.tfr.rulesEngine.rule.chain;
 
+import com.google.common.collect.Sets;
+import com.tfr.rulesEngine.exception.RuleException;
 import com.tfr.rulesEngine.rule.Rule;
 import com.tfr.rulesEngine.rule.RuleSet;
 
 import java.util.Iterator;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  *
- * Created by Erik on 6/14/2017.
+ * Created by Erik Hage on 6/17/2017.
  */
-public class SimpleRuleSet<I,O> implements RuleSet<I,O> {
+public class ChainingRuleSet<I,O> implements RuleSet<I,O> {
 
-    private final String name;
-    private final Set<Rule<I,O>> rules;
+    private String name;
+    private Set<Rule<I,O>> rules;
 
-    public SimpleRuleSet(String name) {
+    public ChainingRuleSet(String name) {
         this.name = name;
-        this.rules = new TreeSet<>();
+        this.rules = Sets.newTreeSet();
     }
 
     @Override
     public String getName() {
-        return name;
-    }
-
-    public Set<Rule<I,O>> getRules() {
-        return rules;
+        return this.name;
     }
 
     @Override
-    public boolean add(Rule<I,O> rule) {
+    public Set<Rule<I, O>> getRules() {
+        return this.rules;
+    }
+
+    @Override
+    public boolean add(Rule<I, O> rule) {
+        if(!(rule instanceof Chainable)) {
+            throw new RuleException("Rules in this set must be of type Chainable");
+        }
         if(rules.contains(rule)) {
             return false;
         }

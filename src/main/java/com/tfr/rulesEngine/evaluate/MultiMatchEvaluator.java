@@ -10,11 +10,11 @@ import java.util.List;
  *
  * Created by Erik Hage on 6/16/2017.
  */
-public class MultiMatchEvaluator<I,O,R extends Rule<I,O>> {
+public class MultiMatchEvaluator<I,O> {
 
-    private final RuleSet<R> ruleSet;
+    private final RuleSet<I,O> ruleSet;
 
-    public MultiMatchEvaluator(RuleSet<R> ruleSet) {
+    public MultiMatchEvaluator(RuleSet<I,O> ruleSet) {
         this.ruleSet = ruleSet;
     }
 

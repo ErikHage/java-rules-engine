@@ -1,7 +1,6 @@
 package com.tfr.rulesEngine.evaluate;
 
 import com.tfr.rulesEngine.rule.ExampleRules;
-import com.tfr.rulesEngine.rule.Rule;
 import com.tfr.rulesEngine.rule.RuleSet;
 import com.tfr.rulesEngine.rule.simple.SimpleRuleSet;
 import org.junit.Test;
@@ -18,19 +17,19 @@ public class TestFirstMatchEvaluator {
 
     @Test
     public void testIntToStringRules() {
-        RuleSet<Rule<Integer, String>> ruleSet = new SimpleRuleSet<>("intRules");
+        RuleSet<Integer, String> ruleSet = new SimpleRuleSet<>("intRules");
         ruleSet.add(exampleRules.smallInt);
         ruleSet.add(exampleRules.mediumInt);
         ruleSet.add(exampleRules.hugeInt);
         ruleSet.add(exampleRules.largeInt);
 
-        FirstMatchEvaluator<Integer, String, Rule<Integer, String>> firstMatchEvaluator
+        FirstMatchEvaluator<Integer, String> firstMatchEvaluator
                 = new FirstMatchEvaluator<>(ruleSet);
 
-        assertEquals("int<10", firstMatchEvaluator.evaluate(1));
-        assertEquals("int<100", firstMatchEvaluator.evaluate(10));
-        assertEquals("int<1000", firstMatchEvaluator.evaluate(100));
-        assertEquals("int<10000", firstMatchEvaluator.evaluate(1000));
+        assertEquals("int<10", firstMatchEvaluator.evaluate(1).get(0));
+        assertEquals("int<100", firstMatchEvaluator.evaluate(10).get(0));
+        assertEquals("int<1000", firstMatchEvaluator.evaluate(100).get(0));
+        assertEquals("int<10000", firstMatchEvaluator.evaluate(1000).get(0));
     }
 
 

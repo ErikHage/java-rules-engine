@@ -9,16 +9,16 @@ import java.util.function.Predicate;
  *
  * Created by Erik Hage on 6/16/2017.
  */
-public class ChainableRule<I,O> extends SimpleRule<I,O> implements Chainable<I,O> {
+public class ChainingRule<I,O> extends SimpleRule<I,O> implements Chainable<I,O> {
 
     private String next;
 
-    public ChainableRule(String name, Predicate<I> predicate, Function<I, O> function, String next) {
+    public ChainingRule(String name, Predicate<I> predicate, Function<I, O> function, String next) {
         super(name, predicate, function);
         this.next = next;
     }
 
-    public ChainableRule(String name, int priority, Predicate<I> predicate, Function<I, O> function, String next) {
+    public ChainingRule(String name, int priority, Predicate<I> predicate, Function<I, O> function, String next) {
         super(name, priority, predicate, function);
         this.next = next;
     }

@@ -20,13 +20,13 @@ public class TestMultiMatchEvaluator {
 
     @Test
     public void testIntToStringRules() {
-        RuleSet<Rule<Integer, String>> ruleSet = new SimpleRuleSet<>("intRules");
+        RuleSet<Integer, String> ruleSet = new SimpleRuleSet<>("intRules");
         ruleSet.add(exampleRules.smallInt);
         ruleSet.add(exampleRules.mediumInt);
         ruleSet.add(exampleRules.hugeInt);
         ruleSet.add(exampleRules.largeInt);
 
-        MultiMatchEvaluator<Integer, String, Rule<Integer, String>> multiMatchEvaluator
+        MultiMatchEvaluator<Integer, String> multiMatchEvaluator
                 = new MultiMatchEvaluator<>(ruleSet);
 
         List<String> output = multiMatchEvaluator.evaluate(1);

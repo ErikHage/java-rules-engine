@@ -1,5 +1,6 @@
 package com.tfr.rulesEngine.rule;
 
+import com.tfr.rulesEngine.rule.chain.ChainingRule;
 import com.tfr.rulesEngine.rule.simple.SimpleRule;
 
 /**
@@ -34,5 +35,40 @@ public class ExampleRules {
             70,
             (i) -> i < 10000,
             (i) -> "int<10000"
+    );
+
+
+
+
+    public Rule<Integer, Integer> doubleInt = new ChainingRule<>(
+            "tripleInt",
+            100,
+            (i) -> i>10,
+            (i) -> i*2,
+            "set2"
+    );
+
+    public Rule<Integer, Integer> tripleInt = new ChainingRule<>(
+            "tripleInt",
+            150,
+            (i) -> i<=10,
+            (i) -> i*3,
+            "set3"
+    );
+
+    public Rule<Integer, Integer> plus5 = new ChainingRule<>(
+            "plus5",
+            150,
+            (i) -> true,
+            (i) -> i + 5,
+            null
+    );
+
+    public Rule<Integer, Integer> plus10 = new ChainingRule<>(
+            "plus10",
+            150,
+            (i) -> true,
+            (i) -> i + 10,
+            null
     );
 }

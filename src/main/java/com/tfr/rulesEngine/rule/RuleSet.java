@@ -6,13 +6,13 @@ import java.util.Set;
  *
  * Created by Erik on 6/14/2017.
  */
-public interface RuleSet<R extends Rule> extends Iterable<R> {
+public interface RuleSet<I,O> extends Iterable<Rule<I,O>> {
 
     String getName();
-    Set<R> getRules();
+    Set<Rule<I,O>> getRules();
 
-    boolean add(R rule);
-    boolean contains(R rule);
-    boolean remove(R rule);
+    boolean add(Rule<I,O> rule);
+    boolean contains(Rule<I,O> rule);
+    boolean remove(Rule<I,O> rule);
 
 }
