@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class FirstMatchEvaluator<I,O> implements Evaluator<I,O> {
 
-    private RuleSet<I,O> ruleSet;
+    private final RuleSet<I,O> ruleSet;
 
     public FirstMatchEvaluator(RuleSet<I,O> ruleSet) {
         this.ruleSet = ruleSet;

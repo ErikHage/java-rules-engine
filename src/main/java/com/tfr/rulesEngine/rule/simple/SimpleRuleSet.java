@@ -1,11 +1,11 @@
 package com.tfr.rulesEngine.rule.simple;
 
+import com.google.common.collect.Sets;
 import com.tfr.rulesEngine.rule.Rule;
 import com.tfr.rulesEngine.rule.RuleSet;
 
 import java.util.Iterator;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  *
@@ -18,7 +18,7 @@ public class SimpleRuleSet<I,O> implements RuleSet<I,O> {
 
     public SimpleRuleSet(String name) {
         this.name = name;
-        this.rules = new TreeSet<>();
+        this.rules = Sets.newTreeSet();
     }
 
     @Override

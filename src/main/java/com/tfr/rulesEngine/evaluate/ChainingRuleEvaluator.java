@@ -36,13 +36,11 @@ public class ChainingRuleEvaluator<I,O> implements Evaluator<I,O> {
         for(Rule<I,O> rule: ruleSetMap.get(setName)) {
             if(rule.getPredicate().test(input)) {
                 output.add(rule.getFunction().apply(input));
-                String next = ((ChainingRule)rule).next();
-                if(!Strings.isNullOrEmpty(next)) {
+                String next = ((ChainingRule) rule).next();
+                if (!Strings.isNullOrEmpty(next)) {
                     chain(next, input, output);
                 }
                 break;
-            } else {
-                //log miss
             }
         }
     }

@@ -34,8 +34,8 @@ public class ChainingRuleSet<I,O> implements RuleSet<I,O> {
 
     @Override
     public boolean add(Rule<I, O> rule) {
-        if(!(rule instanceof Chainable)) {
-            throw new RuleException("Rules in this set must be of type Chainable");
+        if(!(rule instanceof ChainingRule)) {
+            throw new RuleException("Rules in this set must be of type ChainingRule");
         }
         if(rules.contains(rule)) {
             return false;

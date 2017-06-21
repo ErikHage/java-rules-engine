@@ -10,7 +10,7 @@ import java.util.List;
  *
  * Created by Erik Hage on 6/16/2017.
  */
-public class MultiMatchEvaluator<I,O> {
+public class MultiMatchEvaluator<I,O> implements Evaluator<I,O> {
 
     private final RuleSet<I,O> ruleSet;
 

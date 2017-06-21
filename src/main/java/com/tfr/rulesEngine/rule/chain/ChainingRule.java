@@ -9,7 +9,7 @@ import java.util.function.Predicate;
  *
  * Created by Erik Hage on 6/16/2017.
  */
-public class ChainingRule<I,O> extends SimpleRule<I,O> implements Chainable<I,O> {
+public class ChainingRule<I,O> extends SimpleRule<I,O> {
 
     private String next;
 
@@ -23,7 +23,6 @@ public class ChainingRule<I,O> extends SimpleRule<I,O> implements Chainable<I,O>
         this.next = next;
     }
 
-    @Override
     public String next() {
         return this.next;
     }
