@@ -1,5 +1,6 @@
 package com.tfr.rulesEngine.evaluate;
 
+import com.google.common.collect.Lists;
 import com.tfr.rulesEngine.rule.Rule;
 import com.tfr.rulesEngine.rule.RuleSet;
 
@@ -19,7 +20,7 @@ public class MultiMatchEvaluator<I,O> implements Evaluator<I,O> {
     }
 
     public List<O> evaluate(I input) {
-        List<O> output = new ArrayList<>();
+        List<O> output = Lists.newArrayList();
         for(Rule<I,O> rule : ruleSet) {
             if(rule.getPredicate().test(input)) {
                 output.add(rule.getFunction().apply(input));
