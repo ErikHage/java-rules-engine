@@ -14,12 +14,12 @@ import java.util.Map;
  *
  * Created by Erik Hage on 6/17/2017.
  */
-public class ChainingRuleEvaluator<I,O> implements Evaluator<I,O> {
+public class IndividualOutputChainingRuleEvaluator<I,O> implements Evaluator<I,O> {
 
     private final String initialSet;
     private final Map<String, ChainingRuleSet<I,O>> ruleSetMap;
 
-    public ChainingRuleEvaluator(String initialSet, List<ChainingRuleSet<I,O>> ruleSets) {
+    public IndividualOutputChainingRuleEvaluator(String initialSet, List<ChainingRuleSet<I,O>> ruleSets) {
         this.initialSet = initialSet;
         this.ruleSetMap = Maps.newHashMap();
         ruleSets.forEach(rs -> ruleSetMap.put(rs.getName(), rs));
