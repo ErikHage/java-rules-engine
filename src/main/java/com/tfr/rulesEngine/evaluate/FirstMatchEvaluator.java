@@ -24,6 +24,7 @@ public class FirstMatchEvaluator<I,O> implements Evaluator<I,O> {
         for(Rule<I,O> rule : ruleSet) {
             if (rule.getPredicate().test(input)) {
                 output.add(rule.getFunction().apply(input));
+                break;
             }
         }
         return output;

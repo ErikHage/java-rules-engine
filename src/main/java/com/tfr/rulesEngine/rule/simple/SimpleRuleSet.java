@@ -1,6 +1,7 @@
 package com.tfr.rulesEngine.rule.simple;
 
 import com.google.common.collect.Sets;
+import com.tfr.rulesEngine.exception.RuleException;
 import com.tfr.rulesEngine.rule.Rule;
 import com.tfr.rulesEngine.rule.RuleSet;
 
@@ -33,7 +34,7 @@ public class SimpleRuleSet<I,O> implements RuleSet<I,O> {
     @Override
     public boolean add(Rule<I,O> rule) {
         if(rules.contains(rule)) {
-            return false;
+            throw new RuleException("RuleSet already contains a rule named: " + rule.getName());
         }
         rules.add(rule);
         return true;

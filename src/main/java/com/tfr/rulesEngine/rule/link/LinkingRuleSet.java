@@ -1,23 +1,23 @@
-package com.tfr.rulesEngine.rule.chain;
+package com.tfr.rulesEngine.rule.link;
 
 import com.tfr.rulesEngine.exception.RuleException;
 import com.tfr.rulesEngine.rule.Rule;
-import com.tfr.rulesEngine.rule.link.LinkingRuleSet;
+import com.tfr.rulesEngine.rule.simple.SimpleRuleSet;
 
 /**
  *
  * Created by Erik Hage on 6/17/2017.
  */
-public class ChainingRuleSet<I> extends LinkingRuleSet<I,I> {
+public class LinkingRuleSet<I,O> extends SimpleRuleSet<I,O> {
 
-    public ChainingRuleSet(String name) {
+    public LinkingRuleSet(String name) {
         super(name);
     }
 
     @Override
-    public boolean add(Rule<I,I> rule) {
-        if(!(rule instanceof ChainingRule)) {
-            throw new RuleException("Rules in this set must be of type ChainingRule");
+    public boolean add(Rule<I,O> rule) {
+        if(!(rule instanceof LinkingRule)) {
+            throw new RuleException("Rules in this set must be of type LinkingRule");
         }
         if(getRules().contains(rule)) {
             throw new RuleException("RuleSet already contains a rule named: " + rule.getName());
@@ -25,5 +25,4 @@ public class ChainingRuleSet<I> extends LinkingRuleSet<I,I> {
         getRules().add(rule);
         return true;
     }
-
 }

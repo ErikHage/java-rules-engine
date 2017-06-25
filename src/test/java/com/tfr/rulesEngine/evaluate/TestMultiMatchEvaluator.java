@@ -1,13 +1,14 @@
 package com.tfr.rulesEngine.evaluate;
 
-import com.tfr.rulesEngine.rule.ExampleRules;
-import com.tfr.rulesEngine.rule.Rule;
+import com.google.common.collect.Lists;
 import com.tfr.rulesEngine.rule.RuleSet;
 import com.tfr.rulesEngine.rule.simple.SimpleRuleSet;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
+import static com.tfr.rulesEngine.testData.TestRules.*;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -16,41 +17,69 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestMultiMatchEvaluator {
 
-    private ExampleRules exampleRules = new ExampleRules();
+    private RuleSet<Integer, String> ruleSet;
+
+    @Before
+    public void setUp() {
+        ruleSet = new SimpleRuleSet<>("intRules");
+    }
 
     @Test
-    public void testIntToStringRules() {
-        RuleSet<Integer, String> ruleSet = new SimpleRuleSet<>("intRules");
-        ruleSet.add(exampleRules.smallInt);
-        ruleSet.add(exampleRules.mediumInt);
-        ruleSet.add(exampleRules.hugeInt);
-        ruleSet.add(exampleRules.largeInt);
+    public void testEvaluate_GivenOneRule() {
+        ruleSet.add(SMALL_INT);
+        runTest(ruleSet, 1, 1, Lists.newArrayList("int<10"));
+        runTest(ruleSet, 11, 0, Lists.newArrayList());
+    }
 
-        MultiMatchEvaluator<Integer, String> multiMatchEvaluator
-                = new MultiMatchEvaluator<>(ruleSet);
+    @Test
+    public void testEvaluate_GivenTwoRules() {
+        ruleSet.add(SMALL_INT);
+        ruleSet.add(MED_INT);
+        runTest(ruleSet, 1, 2, Lists.newArrayList("int<10","int<100"));
+        runTest(ruleSet, 11, 1, Lists.newArrayList("int<100"));
+        runTest(ruleSet, 101, 0, Lists.newArrayList());
+    }
 
-        List<String> output = multiMatchEvaluator.evaluate(1);
-        assertEquals(4, output.size());
-        assertEquals("int<10", output.get(0));
-        assertEquals("int<100", output.get(1));
-        assertEquals("int<1000", output.get(2));
-        assertEquals("int<10000", output.get(3));
+    @Test
+    public void testEvaluate_GivenThreeRules() {
+        ruleSet.add(SMALL_INT);
+        ruleSet.add(MED_INT);
+        ruleSet.add(LARGE_INT);
+        runTest(ruleSet, 1, 3, Lists.newArrayList("int<10","int<100","int<1000"));
+        runTest(ruleSet, 11, 2, Lists.newArrayList("int<100","int<1000"));
+        runTest(ruleSet, 101, 1, Lists.newArrayList("int<1000"));
+        runTest(ruleSet, 1001, 0, Lists.newArrayList());
+    }
 
-        output = multiMatchEvaluator.evaluate(10);
-        assertEquals(3, output.size());
-        assertEquals("int<100", output.get(0));
-        assertEquals("int<1000", output.get(1));
-        assertEquals("int<10000", output.get(2));
+    @Test
+    public void testEvaluate_GivenFourRules() {
+        ruleSet.add(SMALL_INT);
+        ruleSet.add(MED_INT);
+        ruleSet.add(LARGE_INT);
+        ruleSet.add(HUGE_INT);
+        runTest(ruleSet, 1, 3, Lists.newArrayList("int<10","int<100","int<1000"));
+        runTest(ruleSet, 11, 2, Lists.newArrayList("int<100","int<1000"));
+        runTest(ruleSet, 101, 1, Lists.newArrayList("int<1000"));
+        runTest(ruleSet, 1001, 1, Lists.newArrayList("int>=1000"));
+    }
 
-        output = multiMatchEvaluator.evaluate(100);
-        assertEquals(2, output.size());
-        assertEquals("int<1000", output.get(0));
-        assertEquals("int<10000", output.get(1));
+    @Test
+    public void testEvaluate_GivenAddingRulesWithHigherPriority_ExpectChangeInOutput() {
+        ruleSet.add(LARGE_INT);
+        runTest(ruleSet, 1, 1, Lists.newArrayList("int<1000"));
+        ruleSet.add(MED_INT);
+        runTest(ruleSet, 1, 2, Lists.newArrayList("int<100","int<1000"));
+        ruleSet.add(SMALL_INT);
+        runTest(ruleSet, 1, 3, Lists.newArrayList("int<10","int<100","int<1000"));
+    }
 
-        output = multiMatchEvaluator.evaluate(1000);
-        assertEquals(1, output.size());
-        assertEquals("int<10000", output.get(0));
-
+    private <I,O> void runTest(RuleSet<I,O> ruleSet, I input, int expectedOutputSize, List<O> expectedOutput) {
+        Evaluator<I,O> firstMatchEvaluator = new MultiMatchEvaluator<>(ruleSet);
+        List<O> output = firstMatchEvaluator.evaluate(input);
+        assertEquals(expectedOutputSize, output.size());
+        for(int i=0; i<expectedOutput.size(); i++) {
+            assertEquals(expectedOutput.get(i), output.get(i));
+        }
     }
 
 }
