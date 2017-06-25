@@ -11,9 +11,9 @@ import static org.junit.Assert.assertEquals;
 
 /**
  *
- * Created by Erik Hage on 6/17/2017.
+ * Created by Erik on 6/24/2017.
  */
-public class TestIndividualOutputChainingRuleEvaluator {
+public class TestMultiOutputChainingRuleEvaluator {
 
     private ExampleRules exampleRules = new ExampleRules();
 
@@ -32,16 +32,16 @@ public class TestIndividualOutputChainingRuleEvaluator {
         sets.add(set2);
         sets.add(set3);
 
-        IndividualOutputChainingRuleEvaluator<Integer, Integer> individualOutputChainingRuleEvaluator =
-                new IndividualOutputChainingRuleEvaluator<>("set1", sets);
+        MultiOutputChainingRuleEvaluator<Integer, Integer> multiOutputChainingRuleEvaluator =
+                new MultiOutputChainingRuleEvaluator<>("set1", sets);
 
         List<Integer> output;
-        output = individualOutputChainingRuleEvaluator.evaluate(10);
+        output = multiOutputChainingRuleEvaluator.evaluate(10);
         assertEquals(2, output.size());
         assertEquals(30, output.get(0), 0.1);
         assertEquals(20, output.get(1), 0.1);
 
-        output = individualOutputChainingRuleEvaluator.evaluate(20);
+        output = multiOutputChainingRuleEvaluator.evaluate(20);
         assertEquals(2, output.size());
         assertEquals(40, output.get(0), 0.1);
         assertEquals(25, output.get(1), 0.1);

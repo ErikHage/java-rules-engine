@@ -14,33 +14,31 @@ import java.util.Map;
  *
  * Created by Erik Hage on 6/17/2017.
  */
-public class ChainingOutputChainingRuleEvaluator<I> implements Evaluator<I,I> {
+public class MultiOutputChainingRuleEvaluator<I,O> implements Evaluator<I,O> {
 
     private final String initialSet;
-    private final Map<String, ChainingRuleSet<I,I>> ruleSetMap;
+    private final Map<String, ChainingRuleSet<I,O>> ruleSetMap;
 
-    public ChainingOutputChainingRuleEvaluator(String initialSet, List<ChainingRuleSet<I,I>> ruleSets) {
+    public MultiOutputChainingRuleEvaluator(String initialSet, List<ChainingRuleSet<I,O>> ruleSets) {
         this.initialSet = initialSet;
         this.ruleSetMap = Maps.newHashMap();
         ruleSets.forEach(rs -> ruleSetMap.put(rs.getName(), rs));
     }
 
     @Override
-    public List<I> evaluate(I input) {
-        List<I> output = Lists.newArrayList();
+    public List<O> evaluate(I input) {
+        List<O> output = Lists.newArrayList();
         chain(initialSet, input, output);
         return output;
     }
 
-    private void chain(String setName, I input, List<I> output) {
-        for(Rule<I,I> rule: ruleSetMap.get(setName)) {
+    private void chain(String setName, I input, List<O> output) {
+        for(Rule<I,O> rule: ruleSetMap.get(setName)) {
             if(rule.getPredicate().test(input)) {
-                I result = rule.getFunction().apply(input);
+                output.add(rule.getFunction().apply(input));
                 String next = ((ChainingRule) rule).next();
                 if (!Strings.isNullOrEmpty(next)) {
-                    chain(next, result, output);
-                } else {
-                    output.add(result);
+                    chain(next, input, output);
                 }
                 break;
             }
