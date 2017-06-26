@@ -7,6 +7,7 @@ import com.tfr.rulesEngine.rule.RuleSet;
 
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
@@ -18,8 +19,12 @@ public class SimpleRuleSet<I,O> implements RuleSet<I,O> {
     private final Set<Rule<I,O>> rules;
 
     public SimpleRuleSet(String name) {
+        this(name, Sets.newHashSet());
+    }
+
+    public SimpleRuleSet(String name, Set<Rule<I,O>> rules) {
         this.name = name;
-        this.rules = Sets.newTreeSet();
+        this.rules = Sets.newTreeSet(rules);
     }
 
     @Override

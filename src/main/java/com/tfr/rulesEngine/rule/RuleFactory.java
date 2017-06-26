@@ -1,4 +1,4 @@
-package com.tfr.rulesEngine.factory;
+package com.tfr.rulesEngine.rule;
 
 import com.tfr.rulesEngine.rule.Rule;
 import com.tfr.rulesEngine.rule.chain.ChainingRule;

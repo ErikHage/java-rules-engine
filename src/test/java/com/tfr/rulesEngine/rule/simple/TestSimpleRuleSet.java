@@ -1,6 +1,7 @@
-package com.tfr.rulesEngine.rule;
+package com.tfr.rulesEngine.rule.simple;
 
 import com.tfr.rulesEngine.exception.RuleException;
+import com.tfr.rulesEngine.rule.RuleSet;
 import com.tfr.rulesEngine.rule.simple.SimpleRuleSet;
 import org.junit.Test;
 
