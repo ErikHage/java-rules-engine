@@ -4,8 +4,6 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.tfr.rulesEngine.rule.Rule;
-import com.tfr.rulesEngine.rule.chain.ChainingRule;
-import com.tfr.rulesEngine.rule.chain.ChainingRuleSet;
 import com.tfr.rulesEngine.rule.link.LinkingRule;
 import com.tfr.rulesEngine.rule.link.LinkingRuleSet;
 

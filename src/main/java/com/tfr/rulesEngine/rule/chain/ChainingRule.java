@@ -1,7 +1,6 @@
 package com.tfr.rulesEngine.rule.chain;
 
 import com.tfr.rulesEngine.rule.link.LinkingRule;
-import com.tfr.rulesEngine.rule.simple.SimpleRule;
 
 import java.util.function.Function;
 import java.util.function.Predicate;

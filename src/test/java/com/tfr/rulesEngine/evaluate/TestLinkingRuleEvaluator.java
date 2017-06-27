@@ -5,7 +5,6 @@ import com.tfr.rulesEngine.rule.link.LinkingRuleSet;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.tfr.rulesEngine.testData.TestRules.*;
