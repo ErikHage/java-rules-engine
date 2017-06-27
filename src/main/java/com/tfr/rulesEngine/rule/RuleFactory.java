@@ -1,6 +1,5 @@
 package com.tfr.rulesEngine.rule;
 
-import com.tfr.rulesEngine.rule.Rule;
 import com.tfr.rulesEngine.rule.chain.ChainingRule;
 import com.tfr.rulesEngine.rule.link.LinkingRule;
 import com.tfr.rulesEngine.rule.simple.SimpleRule;

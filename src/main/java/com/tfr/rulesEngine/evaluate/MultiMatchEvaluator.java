@@ -2,9 +2,8 @@ package com.tfr.rulesEngine.evaluate;
 
 import com.google.common.collect.Lists;
 import com.tfr.rulesEngine.rule.Rule;
-import com.tfr.rulesEngine.rule.RuleSet;
+import com.tfr.rulesEngine.rule.simple.SimpleRuleSet;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,9 +12,9 @@ import java.util.List;
  */
 public class MultiMatchEvaluator<I,O> implements Evaluator<I,O> {
 
-    private final RuleSet<I,O> ruleSet;
+    private final SimpleRuleSet<I,O> ruleSet;
 
-    public MultiMatchEvaluator(RuleSet<I,O> ruleSet) {
+    public MultiMatchEvaluator(SimpleRuleSet<I,O> ruleSet) {
         this.ruleSet = ruleSet;
     }
 

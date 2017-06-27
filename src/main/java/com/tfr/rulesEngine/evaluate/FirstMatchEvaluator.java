@@ -1,8 +1,8 @@
 package com.tfr.rulesEngine.evaluate;
 
 import com.google.common.collect.Lists;
-import com.tfr.rulesEngine.rule.Rule;
-import com.tfr.rulesEngine.rule.RuleSet;
+import com.tfr.rulesEngine.rule.simple.SimpleRule;
+import com.tfr.rulesEngine.rule.simple.SimpleRuleSet;
 
 import java.util.List;
 
@@ -12,16 +12,16 @@ import java.util.List;
  */
 public class FirstMatchEvaluator<I,O> implements Evaluator<I,O> {
 
-    private final RuleSet<I,O> ruleSet;
+    private final SimpleRuleSet<I,O> ruleSet;
 
-    public FirstMatchEvaluator(RuleSet<I,O> ruleSet) {
+    public FirstMatchEvaluator(SimpleRuleSet<I,O> ruleSet) {
         this.ruleSet = ruleSet;
     }
 
     @Override
     public List<O> evaluate(I input) {
         List<O> output = Lists.newArrayList();
-        for(Rule<I,O> rule : ruleSet) {
+        for(SimpleRule<I,O> rule : ruleSet) {
             if (rule.getPredicate().test(input)) {
                 output.add(rule.getFunction().apply(input));
                 break;

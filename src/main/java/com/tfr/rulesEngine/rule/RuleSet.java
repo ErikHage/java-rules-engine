@@ -1,18 +1,57 @@
 package com.tfr.rulesEngine.rule;
 
+import com.google.common.collect.Sets;
+import com.tfr.rulesEngine.exception.DuplicateRuleException;
+
+import java.util.Iterator;
 import java.util.Set;
 
 /**
  *
  * Created by Erik on 6/14/2017.
  */
-public interface RuleSet<I,O> extends Iterable<Rule<I,O>> {
+//TODO R extends Rule<I,O>
+public abstract class RuleSet<I,O,R extends Rule<I,O>> implements Iterable<R> {
 
-    String getName();
-    Set<Rule<I,O>> getRules();
+    private String name;
+    private Set<R> rules;
 
-    boolean add(Rule<I,O> rule);
-    boolean contains(Rule<I,O> rule);
-    boolean remove(Rule<I,O> rule);
+    public RuleSet(String name) {
+        this(name, Sets.newTreeSet());
+    }
+
+    public RuleSet(String name, Set<R> rules) {
+        this.name = name;
+        this.rules = Sets.newTreeSet();
+        rules.forEach(this::add);
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Set<R> getRules() {
+        return this.rules;
+    }
+
+    public boolean add(R rule) {
+        boolean addedSuccessfully = rules.add(rule);
+        if(!addedSuccessfully) {
+            throw new DuplicateRuleException(rule);
+        }
+        return addedSuccessfully;
+    }
+
+    public boolean contains(R rule) {
+        return rules.contains(rule);
+    }
+
+    public boolean remove(R rule) {
+        return rules.remove(rule);
+    }
+
+    public Iterator<R> iterator() {
+        return rules.iterator();
+    }
 
 }

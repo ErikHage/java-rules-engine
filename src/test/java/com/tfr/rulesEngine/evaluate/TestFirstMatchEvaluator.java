@@ -1,6 +1,5 @@
 package com.tfr.rulesEngine.evaluate;
 
-import com.tfr.rulesEngine.rule.RuleSet;
 import com.tfr.rulesEngine.rule.simple.SimpleRuleSet;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +15,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestFirstMatchEvaluator {
 
-    private RuleSet<Integer, String> ruleSet;
+    private SimpleRuleSet<Integer, String> ruleSet;
 
     @Before
     public void setUp() {
@@ -72,7 +71,7 @@ public class TestFirstMatchEvaluator {
         runTest(ruleSet, 1, 1, "int<10");
     }
 
-    private <I,O> void runTest(RuleSet<I,O> ruleSet, I input, int expectedOutputSize, O expectedOutput) {
+    private <I,O> void runTest(SimpleRuleSet<I,O> ruleSet, I input, int expectedOutputSize, O expectedOutput) {
         Evaluator<I,O> firstMatchEvaluator = new FirstMatchEvaluator<>(ruleSet);
         List<O> output = firstMatchEvaluator.evaluate(input);
         assertEquals(expectedOutputSize, output.size());
