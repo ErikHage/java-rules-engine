@@ -11,7 +11,7 @@ import java.util.Set;
  * Created by Erik on 6/14/2017.
  */
 //TODO R extends Rule<I,O>
-public abstract class RuleSet<I,O,R extends Rule> implements Iterable<R> {
+public abstract class RuleSet<I,O,R extends Rule<I,O>> implements Iterable<R> {
 
     private String name;
     private Set<R> rules;

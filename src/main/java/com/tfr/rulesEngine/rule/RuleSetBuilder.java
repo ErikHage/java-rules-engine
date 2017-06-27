@@ -9,7 +9,7 @@ import java.util.Set;
  *
  * Created by Erik on 6/25/2017.
  */
-public abstract class RuleSetBuilder<I,O,R extends Rule> {
+public abstract class RuleSetBuilder<I,O,R extends Rule<I,O>> {
 
     protected String name;
     protected Set<R> rules;
