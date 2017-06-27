@@ -15,16 +15,22 @@ public class SimpleRule<I,O> implements Rule<I,O> {
     protected final int priority;
     protected final Predicate<I> predicate;
     protected final Function<I,O> function;
+    protected final String next;
 
     public SimpleRule(String name, Predicate<I> predicate, Function<I, O> function) {
         this(name, 0, predicate, function);
     }
 
     public SimpleRule(String name, int priority, Predicate<I> predicate, Function<I, O> function) {
+        this(name, priority, predicate, function, null);
+    }
+
+    public SimpleRule(String name, int priority, Predicate<I> predicate, Function<I, O> function, String next) {
         this.name = name;
         this.priority = priority;
         this.predicate = predicate;
         this.function = function;
+        this.next = next;
     }
 
     @Override
@@ -45,6 +51,11 @@ public class SimpleRule<I,O> implements Rule<I,O> {
     @Override
     public Function<I,O> getFunction() {
         return function;
+    }
+
+    @Override
+    public String getNext() {
+        return this.next;
     }
 
     @Override

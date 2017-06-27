@@ -4,8 +4,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.tfr.rulesEngine.rule.Rule;
-import com.tfr.rulesEngine.rule.link.LinkingRule;
-import com.tfr.rulesEngine.rule.link.LinkingRuleSet;
+import com.tfr.rulesEngine.rule.RuleSet;
 
 import java.util.List;
 import java.util.Map;
@@ -17,9 +16,9 @@ import java.util.Map;
 public class MultiOutputLinkingRuleEvaluator<I,O> implements Evaluator<I,O> {
 
     private final String initialSet;
-    private final Map<String, LinkingRuleSet<I,O>> ruleSetMap;
+    private final Map<String, RuleSet<I,O>> ruleSetMap;
 
-    public MultiOutputLinkingRuleEvaluator(String initialSet, List<LinkingRuleSet<I,O>> ruleSets) {
+    public MultiOutputLinkingRuleEvaluator(String initialSet, List<RuleSet<I,O>> ruleSets) {
         this.initialSet = initialSet;
         this.ruleSetMap = Maps.newHashMap();
         ruleSets.forEach(rs -> ruleSetMap.put(rs.getName(), rs));
@@ -28,17 +27,16 @@ public class MultiOutputLinkingRuleEvaluator<I,O> implements Evaluator<I,O> {
     @Override
     public List<O> evaluate(I input) {
         List<O> output = Lists.newArrayList();
-        chain(initialSet, input, output);
+        evaluate(initialSet, input, output);
         return output;
     }
 
-    private void chain(String setName, I input, List<O> output) {
+    private void evaluate(String setName, I input, List<O> output) {
         for(Rule<I,O> rule: ruleSetMap.get(setName)) {
             if(rule.getPredicate().test(input)) {
                 output.add(rule.getFunction().apply(input));
-                String next = ((LinkingRule) rule).getNext();
-                if (!Strings.isNullOrEmpty(next)) {
-                    chain(next, input, output);
+                if (!Strings.isNullOrEmpty(rule.getNext())) {
+                    evaluate(rule.getNext(), input, output);
                 }
                 break;
             }

@@ -13,5 +13,5 @@ public interface Rule<I,O> extends Comparable<Rule<I,O>> {
     int getPriority();
     Predicate<I> getPredicate();
     Function<I,O> getFunction();
-
+    String getNext();
 }

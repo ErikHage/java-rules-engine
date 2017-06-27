@@ -38,10 +38,9 @@ public class SimpleRuleSet<I,O> implements RuleSet<I,O> {
 
     @Override
     public boolean add(Rule<I,O> rule) {
-        if(rules.contains(rule)) {
+        if(!rules.add(rule)) {
             throw new RuleException("RuleSet already contains a rule named: " + rule.getName());
         }
-        rules.add(rule);
         return true;
     }
 

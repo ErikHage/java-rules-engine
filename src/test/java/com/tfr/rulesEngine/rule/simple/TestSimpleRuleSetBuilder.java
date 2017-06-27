@@ -32,14 +32,12 @@ public class TestSimpleRuleSetBuilder {
         ruleSet = new SimpleRuleSetBuilder<Integer, Integer>("testSet")
                 .addRule(SMALL_INT_INT)
                 .addRule(DOUBLE_INT)
-                .addRule(CHAIN_DOUBLE_INT)
                 .build();
 
         assertNotNull(ruleSet);
         assertTrue(ruleSet instanceof SimpleRuleSet);
         assertTrue(ruleSet.contains(SMALL_INT_INT));
         assertTrue(ruleSet.contains(DOUBLE_INT));
-        assertTrue(ruleSet.contains(CHAIN_DOUBLE_INT));
     }
 
     @Test(expected = RuleException.class)

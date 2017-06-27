@@ -29,12 +29,12 @@ public class TestSimpleRuleSet {
         assertTrue(ruleSet.contains(DOUBLE_INT));
     }
 
-    @Test
-    public void testAddRule_GivenChainingRule_ExpectSuccess() {
-        RuleSet<Integer, Integer> ruleSet = new SimpleRuleSet<>("set1");
-        assertTrue(ruleSet.add(CHAIN_DOUBLE_INT));
-        assertTrue(ruleSet.contains(CHAIN_DOUBLE_INT));
-    }
+//    @Test
+//    public void testAddRule_GivenChainingRule_ExpectSuccess() {
+//        RuleSet<Integer, Integer> ruleSet = new SimpleRuleSet<>("set1");
+//        assertTrue(ruleSet.add(CHAIN_DOUBLE_INT));
+//        assertTrue(ruleSet.contains(CHAIN_DOUBLE_INT));
+//    }
 
     @Test
     public void testAddRemoveRule_ExpectSuccess() {

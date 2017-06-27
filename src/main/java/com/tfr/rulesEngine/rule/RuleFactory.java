@@ -1,8 +1,5 @@
 package com.tfr.rulesEngine.rule;
 
-import com.tfr.rulesEngine.rule.Rule;
-import com.tfr.rulesEngine.rule.chain.ChainingRule;
-import com.tfr.rulesEngine.rule.link.LinkingRule;
 import com.tfr.rulesEngine.rule.simple.SimpleRule;
 
 import java.util.function.Function;
@@ -22,11 +19,8 @@ public class RuleFactory {
         return new SimpleRule<>(name, priority, predicate, function);
     }
 
-    public static <I,O> LinkingRule<I,O> getLinkingRule(String name, int priority, Predicate<I> predicate, Function<I,O> function, String next) {
-        return new LinkingRule<>(name, priority, predicate, function, next);
+    public static <I,O> Rule<I,O> getRule(String name, int priority, Predicate<I> predicate, Function<I,O> function, String next) {
+        return new SimpleRule<>(name, priority, predicate, function, next);
     }
 
-    public static <I> ChainingRule<I> getChainingRule(String name, int priority, Predicate<I> predicate, Function<I,I> function, String next) {
-        return new ChainingRule<>(name, priority, predicate, function, next);
-    }
 }

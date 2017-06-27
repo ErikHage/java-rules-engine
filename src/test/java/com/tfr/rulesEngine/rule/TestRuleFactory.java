@@ -1,9 +1,5 @@
 package com.tfr.rulesEngine.rule;
 
-import com.tfr.rulesEngine.rule.Rule;
-import com.tfr.rulesEngine.rule.RuleFactory;
-import com.tfr.rulesEngine.rule.chain.ChainingRule;
-import com.tfr.rulesEngine.rule.link.LinkingRule;
 import com.tfr.rulesEngine.rule.simple.SimpleRule;
 import org.junit.Test;
 
@@ -31,17 +27,12 @@ public class TestRuleFactory {
     }
 
     @Test
-    public void testGetLinkingRule_ExpectLinkingRuleWithLink() {
-        Rule<String, String> rule = RuleFactory.getLinkingRule("testRule", 100, (i) -> true, (i) -> "String", "nextRule");
-        assertTrue(rule instanceof LinkingRule);
-        assertEquals("nextRule", ((LinkingRule)rule).getNext());
+    public void testGetRule_ExpectSimpleRuleWithPriority100NextABC() {
+        Rule<String, String> rule = RuleFactory.getRule("testRule", 100, (i) -> true, (i) -> "String", "ABC");
+        assertTrue(rule instanceof SimpleRule);
+        assertEquals(100, rule.getPriority());
+        assertEquals("ABC", rule.getNext());
     }
 
-    @Test
-    public void testGetChainingRule_ExpectChainingRuleWithNext() {
-        Rule<String, String> rule = RuleFactory.getChainingRule("testRule", 100, (i) -> true, (i) -> "String", "nextRule");
-        assertTrue(rule instanceof ChainingRule);
-        assertEquals("nextRule", ((ChainingRule)rule).getNext());
-    }
 
 }

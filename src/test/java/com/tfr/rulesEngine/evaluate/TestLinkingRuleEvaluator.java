@@ -1,11 +1,10 @@
 package com.tfr.rulesEngine.evaluate;
 
 import com.google.common.collect.Lists;
-import com.tfr.rulesEngine.rule.link.LinkingRuleSet;
+import com.tfr.rulesEngine.rule.RuleSet;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.tfr.rulesEngine.testData.TestRules.*;
@@ -17,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestLinkingRuleEvaluator {
 
-    private List<LinkingRuleSet<Integer, Integer>> sets;
+    private List<RuleSet<Integer, Integer>> sets;
 
     @Before
     public void setUp() {
@@ -34,7 +33,7 @@ public class TestLinkingRuleEvaluator {
         runTest(SET_1.getName(), sets, 10, 0, Lists.newArrayList());
     }
 
-    private <I,O> void runTest(String initialSet, List<LinkingRuleSet<I,O>> sets, I input, int expectedOutputSize, List<O> expectedOutputs) {
+    private <I,O> void runTest(String initialSet, List<RuleSet<I,O>> sets, I input, int expectedOutputSize, List<O> expectedOutputs) {
         Evaluator<I,O> linkingRuleEvaluator = new LinkingRuleEvaluator<>(initialSet, sets);
         List<O> output = linkingRuleEvaluator.evaluate(input);
         assertEquals(expectedOutputSize, output.size());

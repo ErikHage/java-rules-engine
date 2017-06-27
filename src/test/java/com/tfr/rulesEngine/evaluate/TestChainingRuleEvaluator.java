@@ -1,7 +1,7 @@
 package com.tfr.rulesEngine.evaluate;
 
 import com.google.common.collect.Lists;
-import com.tfr.rulesEngine.rule.chain.ChainingRuleSet;
+import com.tfr.rulesEngine.rule.RuleSet;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestChainingRuleEvaluator {
 
-    private List<ChainingRuleSet<Integer>> sets;
+    private List<RuleSet<Integer, Integer>> sets;
 
     @Before
     public void setUp() {
@@ -25,15 +25,15 @@ public class TestChainingRuleEvaluator {
 
     @Test
     public void testEvaluate_GivenLinkedSetOfRules_ExpectSuccess() {
-        sets.add(CHAIN_SET_1);
-        sets.add(CHAIN_SET_2);
-        sets.add(CHAIN_SET_3);
-        runTest(CHAIN_SET_1.getName(), sets, 11, 1, Lists.newArrayList(27));
-        runTest(CHAIN_SET_1.getName(), sets, 9, 1, Lists.newArrayList(37));
-        runTest(CHAIN_SET_1.getName(), sets, 10, 0, Lists.newArrayList());
+        sets.add(SET_1);
+        sets.add(SET_2);
+        sets.add(SET_3);
+        runTest(SET_1.getName(), sets, 11, 1, Lists.newArrayList(27));
+        runTest(SET_1.getName(), sets, 9, 1, Lists.newArrayList(37));
+        runTest(SET_1.getName(), sets, 10, 0, Lists.newArrayList());
     }
 
-    private <I> void runTest(String initialSet, List<ChainingRuleSet<I>> sets, I input, int expectedOutputSize, List<I> expectedOutputs) {
+    private <I> void runTest(String initialSet, List<RuleSet<I,I>> sets, I input, int expectedOutputSize, List<I> expectedOutputs) {
         Evaluator<I,I> linkingRuleEvaluator = new ChainingRuleEvaluator<>(initialSet, sets);
         List<I> output = linkingRuleEvaluator.evaluate(input);
         assertEquals(expectedOutputSize, output.size());
