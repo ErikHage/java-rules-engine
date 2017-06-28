@@ -75,7 +75,12 @@ public class SimpleRule<I,O> implements Rule<I,O> {
 
     @Override
     public int compareTo(Rule<I, O> other) {
-        return other.getPriority() - this.priority;
+        int priorityCompare = other.getPriority() - this.priority;
+        if(priorityCompare == 0) {
+            return name.compareTo(other.getName());
+        }
+        return priorityCompare;
+
     }
 
     @Override

@@ -24,7 +24,10 @@ public class SimpleRuleSet<I,O> implements RuleSet<I,O> {
 
     public SimpleRuleSet(String name, Set<Rule<I,O>> rules) {
         this.name = name;
-        this.rules = Sets.newTreeSet(rules);
+        this.rules = Sets.newTreeSet();
+        for(Rule<I,O> rule : rules) {
+            this.rules.add(rule);
+        }
     }
 
     @Override
