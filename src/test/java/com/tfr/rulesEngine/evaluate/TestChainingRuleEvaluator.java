@@ -8,7 +8,8 @@ import org.junit.Test;
 import java.util.*;
 
 import static com.tfr.rulesEngine.testData.TestRules.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+import static com.tfr.rulesEngine.evaluate.Evaluator.EvaluationStyle.*;
 
 /**
  *
@@ -24,21 +25,42 @@ public class TestChainingRuleEvaluator {
     }
 
     @Test
-    public void testEvaluate_GivenLinkedSetOfRules_ExpectSuccess() {
+    public void testEvaluate_GivenSingleMatch_GivenLinkedSetOfRules_ExpectSuccess() {
         sets.add(SET_1);
         sets.add(SET_2);
         sets.add(SET_3);
-        runTest(SET_1.getName(), sets, 11, 1, Lists.newArrayList(27));
-        runTest(SET_1.getName(), sets, 9, 1, Lists.newArrayList(37));
-        runTest(SET_1.getName(), sets, 10, 0, Lists.newArrayList());
+        runTest(SET_1.getName(), sets, 11, 1, Lists.newArrayList(27), SINGLE_MATCH);
+        runTest(SET_1.getName(), sets, 9, 1, Lists.newArrayList(37), SINGLE_MATCH);
+        runTest(SET_1.getName(), sets, 10, 0, Lists.newArrayList(), SINGLE_MATCH);
     }
 
-    private <I> void runTest(String initialSet, List<RuleSet<I,I>> sets, I input, int expectedOutputSize, List<I> expectedOutputs) {
-        Evaluator<I,I> linkingRuleEvaluator = new ChainingRuleEvaluator<>(initialSet, sets);
+    @Test
+    public void testEvaluate_GivenSingleMatchPerSet_GivenLinkedSetOfRules_ExpectSuccess() {
+        sets.add(SET_1);
+        sets.add(SET_2);
+        sets.add(SET_3);
+        runTest(SET_1.getName(), sets, 11, 3, Lists.newArrayList(22,16,21), SINGLE_MATCH_PER_SET);
+        runTest(SET_1.getName(), sets, 9, 3, Lists.newArrayList(27,19,14), SINGLE_MATCH_PER_SET);
+        runTest(SET_1.getName(), sets, 10, 2, Lists.newArrayList(15,20), SINGLE_MATCH_PER_SET);
+    }
+
+    @Test
+    public void testEvaluate_GivenMultiMatch_GivenLinkedSetOfRules_ExpectSuccess() {
+        sets.add(SET_1);
+        sets.add(SET_2);
+        sets.add(SET_3);
+        runTest(SET_1.getName(), sets, 11, 2, Lists.newArrayList(22,27), MULTI_MATCH);
+        runTest(SET_1.getName(), sets, 9, 2, Lists.newArrayList(27,37), MULTI_MATCH);
+        runTest(SET_1.getName(), sets, 10, 0, Lists.newArrayList(), MULTI_MATCH);
+    }
+
+    private <I> void runTest(String initialSet, List<RuleSet<I,I>> sets, I input, int expectedOutputSize,
+                             List<I> expectedOutputs, Evaluator.EvaluationStyle evaluationStyle) {
+        Evaluator<I,I> linkingRuleEvaluator = new ChainingRuleEvaluator<>(initialSet, sets, evaluationStyle);
         List<I> output = linkingRuleEvaluator.evaluate(input);
         assertEquals(expectedOutputSize, output.size());
-        for(int i=0; i<output.size(); i++) {
-            assertEquals(expectedOutputs.get(i), output.get(i));
+        for(I expected : expectedOutputs) {
+            assertTrue(output.contains(expected));
         }
     }
 

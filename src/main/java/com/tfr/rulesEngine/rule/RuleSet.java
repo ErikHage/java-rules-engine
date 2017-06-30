@@ -1,6 +1,7 @@
 package com.tfr.rulesEngine.rule;
 
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  *
@@ -10,6 +11,8 @@ public interface RuleSet<I,O> extends Iterable<Rule<I,O>> {
 
     String getName();
     Set<Rule<I,O>> getRules();
+
+    Stream<Rule<I,O>> stream();
 
     boolean add(Rule<I,O> rule);
     boolean contains(Rule<I,O> rule);

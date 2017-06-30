@@ -8,6 +8,7 @@ import com.tfr.rulesEngine.rule.RuleSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 /**
  *
@@ -60,5 +61,10 @@ public class SimpleRuleSet<I,O> implements RuleSet<I,O> {
     @Override
     public Iterator<Rule<I,O>> iterator() {
         return rules.iterator();
+    }
+
+    @Override
+    public Stream<Rule<I,O>> stream() {
+        return rules.stream();
     }
 }

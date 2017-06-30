@@ -25,4 +25,9 @@ public class SingleRuleEvaluator<I,O> implements Evaluator<I,O> {
         }
         return output;
     }
+
+    @Override
+    public EvaluationStyle getEvaluationStyle() {
+        return EvaluationStyle.SINGLE_MATCH_PER_SET;
+    }
 }

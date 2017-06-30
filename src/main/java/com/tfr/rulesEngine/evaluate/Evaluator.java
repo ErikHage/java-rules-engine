@@ -8,6 +8,14 @@ import java.util.List;
  */
 public interface Evaluator<I,O> {
 
+    enum EvaluationStyle {
+        SINGLE_MATCH,
+        SINGLE_MATCH_PER_SET,
+        MULTI_MATCH
+    }
+
     List<O> evaluate(I input);
+
+    EvaluationStyle getEvaluationStyle();
 
 }

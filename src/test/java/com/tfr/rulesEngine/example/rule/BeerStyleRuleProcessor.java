@@ -1,7 +1,7 @@
 package com.tfr.rulesEngine.example.rule;
 
 import com.tfr.rulesEngine.evaluate.Evaluator;
-import com.tfr.rulesEngine.evaluate.MultiMatchEvaluator;
+import com.tfr.rulesEngine.evaluate.RuleSetEvaluator;
 import com.tfr.rulesEngine.example.model.Beer;
 import com.tfr.rulesEngine.rule.RuleSet;
 import com.tfr.rulesEngine.rule.simple.SimpleRuleSetBuilder;
@@ -26,7 +26,7 @@ public class BeerStyleRuleProcessor {
                 .addRule(IS_AMBER_STYLE)
                 .addRule(IS_RED_STYLE)
                 .build();
-        this.evaluator = new MultiMatchEvaluator<>(ruleSet);
+        this.evaluator = new RuleSetEvaluator<>(ruleSet, Evaluator.EvaluationStyle.MULTI_MATCH);
     }
 
     public List<String> process(Beer beer) {
