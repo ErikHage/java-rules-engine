@@ -29,6 +29,7 @@ public class BeerCharacteristicRuleProcessor {
 
         ruleSets.add(new SimpleRuleSetBuilder<Beer,String>("SRM Rules")
                 .addRule(IS_LIGHT)
+                .addRule(IS_RED)
                 .addRule(IS_DARK)
                 .build());
 
@@ -41,7 +42,7 @@ public class BeerCharacteristicRuleProcessor {
                 .addRule(IS_STRONG)
                 .build());
 
-        this.evaluator = new MultiRuleSetEvaluator<>("IBU Rules", ruleSets, Evaluator.EvaluationStyle.MULTI_MATCH);
+        this.evaluator = new MultiRuleSetEvaluator<>("IBU Rules", ruleSets, Evaluator.EvaluationStyle.SINGLE_MATCH_PER_SET);
     }
 
     public List<String> process(Beer beer) {

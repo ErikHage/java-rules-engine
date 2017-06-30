@@ -6,6 +6,7 @@ import com.tfr.rulesEngine.rule.simple.SimpleRuleSet;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.tfr.rulesEngine.testData.TestRules.*;
@@ -174,30 +175,32 @@ public class TestRuleSetEvaluator {
 
 
     private <I,O> void runTestSingleMatch(RuleSet<I,O> ruleSet, I input, int expectedOutputSize, O expectedOutput) {
-        Evaluator<I,O> firstMatchEvaluator = new RuleSetEvaluator<>(ruleSet);
-        List<O> output = firstMatchEvaluator.evaluate(input);
-        assertEquals(expectedOutputSize, output.size());
-        if(expectedOutput != null) {
-            assertEquals(expectedOutput, output.get(0));
-        }
+        List<O> expectedOutputs = new ArrayList<>();
+        if(expectedOutput != null)
+            expectedOutputs.add(expectedOutput);
+        runTest(ruleSet, input, expectedOutputSize, expectedOutputs, Evaluator.EvaluationStyle.SINGLE_MATCH);
     }
 
     private <I,O> void runTestSingleMatchPerSet(RuleSet<I,O> ruleSet, I input, int expectedOutputSize, O expectedOutput) {
-        Evaluator<I,O> firstMatchEvaluator = new RuleSetEvaluator<>(ruleSet, Evaluator.EvaluationStyle.SINGLE_MATCH_PER_SET);
-        List<O> output = firstMatchEvaluator.evaluate(input);
-        assertEquals(expectedOutputSize, output.size());
-        if(expectedOutput != null) {
-            assertEquals(expectedOutput, output.get(0));
-        }
+        List<O> expectedOutputs = new ArrayList<>();
+        if(expectedOutput != null)
+            expectedOutputs.add(expectedOutput);
+        runTest(ruleSet, input, expectedOutputSize, expectedOutputs, Evaluator.EvaluationStyle.SINGLE_MATCH_PER_SET);
     }
 
     private <I,O> void runTestMultiMatch(RuleSet<I,O> ruleSet, I input, int expectedOutputSize, List<O> expectedOutput) {
-        Evaluator<I,O> firstMatchEvaluator = new RuleSetEvaluator<>(ruleSet, Evaluator.EvaluationStyle.MULTI_MATCH);
+        runTest(ruleSet, input, expectedOutputSize, expectedOutput, Evaluator.EvaluationStyle.MULTI_MATCH);
+    }
+
+    private <I,O> void runTest(RuleSet<I,O> ruleSet, I input, int expectedOutputSize, List<O> expectedOutput,
+                               Evaluator.EvaluationStyle evaluationStyle) {
+        Evaluator<I,O> firstMatchEvaluator = new RuleSetEvaluator<>(ruleSet, evaluationStyle);
         List<O> output = firstMatchEvaluator.evaluate(input);
         assertEquals(expectedOutputSize, output.size());
         for(O expected : expectedOutput) {
             assertTrue(output.contains(expected));
         }
     }
+
 
 }

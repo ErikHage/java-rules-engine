@@ -24,6 +24,13 @@ public interface CharacteristicRules {
             (b) -> "Dark"
     );
 
+    Rule<Beer, String> IS_RED = new SimpleRule<>(
+            "Beer Is Red",
+            0,
+            (b) -> b.getSrm() >= 30 && b.getSrm() <=80,
+            (b) -> "Red"
+    );
+
     Rule<Beer, String> IS_LIGHT = new SimpleRule<>(
             "Beer Is Light",
             0,
@@ -34,7 +41,7 @@ public interface CharacteristicRules {
     Rule<Beer, String> IS_MALTY = new SimpleRule<>(
             "Beer Is Malty",
             0,
-            (b) -> b.getOg() > 1.055,
+            (b) -> b.getOg() > 1.075,
             (b) -> "Malty",
             ""
     );
