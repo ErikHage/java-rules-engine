@@ -7,7 +7,7 @@
 **RuleSet**: An iterable collection of Rule objects  
 **Evaluator**: Uses a Rule/RuleSet to Evaluate an input and produce an output  
 **Linking**: When a Rule points to a following RuleSet to be Evaluated upon a Match
-**Chaining**: When a Rule points to a following RuleSet to be Evaluated upon a Match using the output of the first ruleSet as the input to the next.
+**Chaining**: When a Rule points to a following RuleSet to be Evaluated upon a Match using the output of the first ruleSet as the input to the nextGroup.
 
 ## Evaluating Rules
 When a rule is evaluated, its predicate is tested against the input. If the result is true, then it is considered a Match. After a Match the output function is applied to the input and returns a result. This result is then added to a collection of outputs, which is passed to the caller upon completion of the Evaluation. Depending on the type of Evaluation, this collection may contain one or many outputs. If there are no Matches, the collection returned is empty.
@@ -23,13 +23,13 @@ When a rule is evaluated, its predicate is tested against the input. If the resu
   - A single RuleSet is Evaluated against a given input. The Rules are Evaluated against the input in priority order (highest to lowest). When a Match is found, the result from the Matching Rule is added to the output collection. Evaluation continues until all Rules have been Evaluated, adding the results of Matching rules to the output collection. If there is no Match the collection returned is empty.
    
 - Evaluate **Multiple RuleSets** and receive a **Single Output** (result of the final Match)  
-  - Multiple RuleSets are Evaluated against a given input. A starting RuleSet is defined, the Matching Rule of which points to the next RuleSet to be Evaluated. This continues until a Rule is Matched with no pointer to a next RuleSet. The result of this Rule is returned as the output collection containing one item. If there is no Match the collection returned is empty. 
+  - Multiple RuleSets are Evaluated against a given input. A starting RuleSet is defined, the Matching Rule of which points to the nextGroup RuleSet to be Evaluated. This continues until a Rule is Matched with no pointer to a nextGroup RuleSet. The result of this Rule is returned as the output collection containing one item. If there is no Match the collection returned is empty. 
 
 - Evaluate **Multiple RuleSets** and receive a **Single Output** (chaining results as new inputs)  
-  - Multiple RuleSets are Evaluated against a given input. A starting RuleSet is defined, the Matching Rule of which points to the next RuleSet to be Evaluated. The result of the previously Matched Rule is used as the input to the proceeding RuleSet. This continues until a Rule is Matched with no pointer to a next RuleSet. The result of this Rule is returned as the output collection containing one item. If there is no Match the collection returned is empty. **Note that in this case the input and output types of the Rules must be the same type**
+  - Multiple RuleSets are Evaluated against a given input. A starting RuleSet is defined, the Matching Rule of which points to the nextGroup RuleSet to be Evaluated. The result of the previously Matched Rule is used as the input to the proceeding RuleSet. This continues until a Rule is Matched with no pointer to a nextGroup RuleSet. The result of this Rule is returned as the output collection containing one item. If there is no Match the collection returned is empty. **Note that in this case the input and output types of the Rules must be the same type**
    
 - Evaluate **Multiple RuleSets** and receive **Multiple Outputs**  
-  - Multiple RuleSets are Evaluated against a given input. A starting RuleSet is defined, the Matching Rule of which points to the next RuleSet to be Evaluated. This continues until a Rule is Matched with no pointer to a next RuleSet. The result of each Matched Rule is added to the output collection. If there is no Match the collection returned is empty.
+  - Multiple RuleSets are Evaluated against a given input. A starting RuleSet is defined, the Matching Rule of which points to the nextGroup RuleSet to be Evaluated. This continues until a Rule is Matched with no pointer to a nextGroup RuleSet. The result of each Matched Rule is added to the output collection. If there is no Match the collection returned is empty.
 
 ## Interfaces:
 - **Rule<I,O> extends Comparable<Rule<I,O>>**  

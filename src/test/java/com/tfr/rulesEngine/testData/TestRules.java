@@ -1,9 +1,9 @@
 package com.tfr.rulesEngine.testData;
 
+import com.tfr.rulesEngine.rule._Rule;
+import com.tfr.rulesEngine.rule._RuleSet;
 import com.tfr.rulesEngine.rule.Rule;
 import com.tfr.rulesEngine.rule.RuleSet;
-import com.tfr.rulesEngine.rule.simple.SimpleRule;
-import com.tfr.rulesEngine.rule.simple.SimpleRuleSet;
 
 /**
  *
@@ -11,37 +11,37 @@ import com.tfr.rulesEngine.rule.simple.SimpleRuleSet;
  */
 public interface TestRules {
 
-    /* Simple Rules */
-    Rule<String, String> LONG_STRING_RULE = new SimpleRule<>("longString", 0, (i) -> i.length() > 10, (i) -> "String has more than 10 characters");
-    Rule<String, String> SHORT_STRING_RULE = new SimpleRule<>("shortString", 0, (i) -> i.length() < 10, (i) -> "String has less than 10 characters");
-    Rule<String, String> TEN_CHAR_RULE = new SimpleRule<>("tenChar", 0, (i) -> i.length() == 10, (i) -> "String has exactly 10 characters");
+    _Rule<String, String> LONG_STRING_RULE = new Rule.RuleBuilder<String,String>("longString", (i) -> i.length() > 10,
+            (i) -> "String has more than 10 characters").build();
+    _Rule<String, String> SHORT_STRING_RULE = new Rule.RuleBuilder<String,String>("shortString", (i) -> i.length() < 10,
+            (i) -> "String has less than 10 characters").build();
+    _Rule<String, String> TEN_CHAR_RULE = new Rule.RuleBuilder<String,String>("tenChar", (i) -> i.length() == 10,
+            (i) -> "String has exactly 10 characters").build();
 
-    Rule<Integer, Boolean> INT_EQUALS_10 = new SimpleRule<>("intEquals10", 0, (i) -> i==10, (i) -> true);
-    Rule<Integer, Boolean> INT_EQUALS_1 = new SimpleRule<>("intEquals1", 0, (i) -> i==1, (i) -> true);
+    _Rule<Integer, Boolean> INT_EQUALS_10 = new Rule.RuleBuilder<Integer, Boolean>("intEquals10",
+            (i) -> i==10, (i) -> true).build();
+    _Rule<Integer, Boolean> INT_EQUALS_1 = new Rule.RuleBuilder<Integer, Boolean>("intEquals1",
+            (i) -> i==1, (i) -> true).build();
 
-    Rule<Integer, String> SMALL_INT = new SimpleRule<>("smallInt",100, (i) -> i < 10, (i) -> "int<10");
-    Rule<Integer, String> MED_INT = new SimpleRule<>("mediumInt",90, (i) -> i < 100, (i) -> "int<100");
-    Rule<Integer, String> LARGE_INT = new SimpleRule<>("largeInt",80, (i) -> i < 1000, (i) -> "int<1000");
-    Rule<Integer, String> HUGE_INT = new SimpleRule<>("hugeInt",70, (i) -> i >= 1000, (i) -> "int>=1000");
+    _Rule<Integer, String> SMALL_INT = new Rule.RuleBuilder<Integer,String>("smallInt", (i) -> i < 10,
+            (i) -> "int<10").priority(100).build();
+    _Rule<Integer, String> MED_INT = new Rule.RuleBuilder<Integer,String>("mediumInt", (i) -> i < 100,
+            (i) -> "int<100").priority(90).build();
+    _Rule<Integer, String> LARGE_INT = new Rule.RuleBuilder<Integer,String>("largeInt", (i) -> i < 1000,
+            (i) -> "int<1000").priority(80).build();
+    _Rule<Integer, String> HUGE_INT = new Rule.RuleBuilder<Integer,String>("hugeInt", (i) -> i >= 1000,
+            (i) -> "int>=1000").priority(70).build();
 
-    Rule<Integer, Integer> SMALL_INT_INT = new SimpleRule<>("smallIntInt",100, (i) -> i < 10, (i) -> i);
+    _Rule<Integer, Integer> SMALL_INT_INT = new Rule.RuleBuilder<Integer, Integer>("smallIntInt", (i) -> i < 10,
+            (i) -> i).priority(100).build();
 
-    /* Linking Rules */
-    Rule<Integer, Integer> DOUBLE_INT = new SimpleRule<>("doubleInt", 100, (i) -> i>10, (i) -> i*2, "set2");
-    Rule<Integer, Integer> TRIPLE_INT = new SimpleRule<>("tripleInt", 150, (i) -> i<10, (i) -> i*3, "set3");
-    Rule<Integer, Integer> PLUS_5 = new SimpleRule<>("plus5", 100, (i) -> true, (i) -> i+5, null);
-    Rule<Integer, Integer> PLUS_10 = new SimpleRule<>("plus10", 100, (i) -> true, (i) -> i+10, null);
+    _Rule<Integer, Integer> DOUBLE_INT = new Rule.RuleBuilder<Integer, Integer>("doubleInt", (i) -> i>10,
+            (i) -> i*2).priority(100).nextGroup("set2").build();
+    _Rule<Integer, Integer> TRIPLE_INT = new Rule.RuleBuilder<Integer, Integer>("tripleInt", (i) -> i<10,
+            (i) -> i*3).priority(150).nextGroup("set3").build();
+    _Rule<Integer, Integer> PLUS_5 = new Rule.RuleBuilder<Integer, Integer>("plus5", (i) -> true,
+            (i) -> i+5).group("set2").build();
+    _Rule<Integer, Integer> PLUS_10 = new Rule.RuleBuilder<Integer, Integer>("plus10", (i) -> true,
+            (i) -> i+10).group("set3").build();
 
-    RuleSet<Integer, Integer> SET_1 = new SimpleRuleSet<Integer, Integer>("set1") {{
-        add(DOUBLE_INT);
-        add(TRIPLE_INT);
-    }};
-
-    RuleSet<Integer, Integer> SET_2 = new SimpleRuleSet<Integer, Integer>("set2") {{
-        add(PLUS_5);
-    }};
-
-    RuleSet<Integer, Integer> SET_3 = new SimpleRuleSet<Integer, Integer>("set3"){{
-        add(PLUS_10);
-    }};
 }

@@ -1,9 +1,8 @@
 package com.tfr.rulesEngine.example.beer.code;
 
-import com.tfr.rulesEngine.evaluate.Evaluator;
-import com.tfr.rulesEngine.evaluate.RuleSetEvaluator;
-import com.tfr.rulesEngine.rule.RuleSet;
-import com.tfr.rulesEngine.rule.simple.SimpleRuleSetBuilder;
+import com.tfr.rulesEngine.evaluate._Evaluator;
+import com.tfr.rulesEngine.evaluate.RuleEvaluator;
+import com.tfr.rulesEngine.rule._RuleSet;
 
 import java.util.List;
 
@@ -13,21 +12,21 @@ import java.util.List;
  */
 public class BeerStyleRuleProcessor {
 
-    private Evaluator<Beer,String> evaluator;
+    private _Evaluator<Beer,String> evaluator;
 
-    public BeerStyleRuleProcessor() {
-        RuleSet<Beer,String> ruleSet = new SimpleRuleSetBuilder<Beer,String>("Style Rules")
-                .addRule(StyleRules.IS_IPA_STYLE)
-                .addRule(StyleRules.IS_AMBER_STYLE)
-                .addRule(StyleRules.IS_RED_STYLE)
-                .build();
-        this.evaluator = new RuleSetEvaluator<>(ruleSet, Evaluator.EvaluationStyle.MULTI_MATCH);
-    }
-
-    public List<String> process(Beer beer) {
-        List<String> output = evaluator.evaluate(beer);
-        System.out.println(output.toString());
-        return output;
-    }
+//    public BeerStyleRuleProcessor() {
+//        _RuleSet<Beer,String> ruleSet = new RuleSetBuilder<Beer,String>("Style Rules")
+//                .addRule(StyleRules.IS_IPA_STYLE)
+//                .addRule(StyleRules.IS_AMBER_STYLE)
+//                .addRule(StyleRules.IS_RED_STYLE)
+//                .build();
+//        this.evaluator = new RuleEvaluator<>(ruleSet, _Evaluator.EvaluationStyle.MULTI_MATCH);
+//    }
+//
+//    public List<String> process(Beer beer) {
+//        List<String> output = evaluator.evaluate(beer);
+//        System.out.println(output.toString());
+//        return output;
+//    }
 
 }
