@@ -20,10 +20,7 @@ public class RuleSet<I,O> implements _RuleSet<I,O> {
     }
 
     public RuleSet(Set<_Rule<I,O>> rules) {
-        this.rules = Sets.newTreeSet();
-        for(_Rule<I,O> rule : rules) {
-            this.rules.add(rule);
-        }
+        this.rules = Sets.newTreeSet(rules);
     }
 
     public Set<_Rule<I,O>> getRules() {
