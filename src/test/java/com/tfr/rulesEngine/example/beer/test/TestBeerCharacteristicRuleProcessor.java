@@ -1,8 +1,8 @@
-package com.tfr.rulesEngine.example.test.rule;
+package com.tfr.rulesEngine.example.beer.test;
 
 import com.google.common.collect.Lists;
-import com.tfr.rulesEngine.example.model.Beer;
-import com.tfr.rulesEngine.example.rule.BeerCharacteristicRuleProcessor;
+import com.tfr.rulesEngine.example.beer.code.Beer;
+import com.tfr.rulesEngine.example.beer.code.BeerCharacteristicRuleProcessor;
 import org.junit.Test;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.tfr.rulesEngine.example.rule;
+package com.tfr.rulesEngine.example.beer.code;
 
-import com.tfr.rulesEngine.example.model.Beer;
+import com.tfr.rulesEngine.example.beer.code.Beer;
 import com.tfr.rulesEngine.rule.Rule;
 import com.tfr.rulesEngine.rule.simple.SimpleRule;
 

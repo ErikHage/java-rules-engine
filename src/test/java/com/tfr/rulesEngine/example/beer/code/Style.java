@@ -1,4 +1,4 @@
-package com.tfr.rulesEngine.example.model;
+package com.tfr.rulesEngine.example.beer.code;
 
 /**
  *

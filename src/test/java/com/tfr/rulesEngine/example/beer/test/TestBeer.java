@@ -1,7 +1,7 @@
-package com.tfr.rulesEngine.example.test.model;
+package com.tfr.rulesEngine.example.beer.test;
 
-import com.tfr.rulesEngine.example.model.Beer;
-import com.tfr.rulesEngine.example.model.Styles;
+import com.tfr.rulesEngine.example.beer.code.Beer;
+import com.tfr.rulesEngine.example.beer.code.Styles;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

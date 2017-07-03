@@ -1,12 +1,12 @@
-package com.tfr.rulesEngine.example.test.rule;
+package com.tfr.rulesEngine.example.beer.test;
 
-import com.tfr.rulesEngine.example.model.Beer;
-import com.tfr.rulesEngine.example.rule.BeerStyleRuleProcessor;
+import com.tfr.rulesEngine.example.beer.code.Beer;
+import com.tfr.rulesEngine.example.beer.code.BeerStyleRuleProcessor;
 import org.junit.Test;
 
 import java.util.List;
 
-import static com.tfr.rulesEngine.example.model.Styles.*;
+import static com.tfr.rulesEngine.example.beer.code.Styles.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

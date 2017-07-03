@@ -1,16 +1,11 @@
-package com.tfr.rulesEngine.example.rule;
+package com.tfr.rulesEngine.example.beer.code;
 
 import com.tfr.rulesEngine.evaluate.Evaluator;
 import com.tfr.rulesEngine.evaluate.RuleSetEvaluator;
-import com.tfr.rulesEngine.example.model.Beer;
 import com.tfr.rulesEngine.rule.RuleSet;
 import com.tfr.rulesEngine.rule.simple.SimpleRuleSetBuilder;
 
 import java.util.List;
-
-import static com.tfr.rulesEngine.example.rule.StyleRules.IS_AMBER_STYLE;
-import static com.tfr.rulesEngine.example.rule.StyleRules.IS_IPA_STYLE;
-import static com.tfr.rulesEngine.example.rule.StyleRules.IS_RED_STYLE;
 
 /**
  *
@@ -22,9 +17,9 @@ public class BeerStyleRuleProcessor {
 
     public BeerStyleRuleProcessor() {
         RuleSet<Beer,String> ruleSet = new SimpleRuleSetBuilder<Beer,String>("Style Rules")
-                .addRule(IS_IPA_STYLE)
-                .addRule(IS_AMBER_STYLE)
-                .addRule(IS_RED_STYLE)
+                .addRule(StyleRules.IS_IPA_STYLE)
+                .addRule(StyleRules.IS_AMBER_STYLE)
+                .addRule(StyleRules.IS_RED_STYLE)
                 .build();
         this.evaluator = new RuleSetEvaluator<>(ruleSet, Evaluator.EvaluationStyle.MULTI_MATCH);
     }
