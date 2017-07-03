@@ -7,14 +7,13 @@ import java.util.Optional;
 import static com.tfr.rulesEngine.config.Constants.*;
 
 /**
- *
  * Created by Erik on 6/29/2017.
  */
-public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
+public class RuleEvaluator<I, O> implements _Evaluator<I, O> {
 
-    private final _RuleMap<I,O> ruleMap;
+    private final _RuleMap<I, O> ruleMap;
 
-    public RuleEvaluator(_RuleSet<I,O> ruleSet) {
+    public RuleEvaluator(_RuleSet<I, O> ruleSet) {
         ruleMap = new RuleMap<>(ruleSet);
     }
 
@@ -27,25 +26,21 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
 
     private Optional<O> evaluateSet(String group, I input) {
         System.out.print("Evaluating Group: " + group);
-        _RuleSet<I,O> ruleGroup = ruleMap.getRuleGroup(group);
+        _RuleSet<I, O> ruleGroup = ruleMap.getRuleGroup(group);
         System.out.println(" , of size " + ruleGroup.getRules().size());
 
-        Optional<_Rule<I,O>> match = ruleGroup.stream()
+        return ruleGroup.stream()
                 .filter(r -> r.getPredicate().test(input))
-                .findFirst();
-
-        if(!match.isPresent()) {
-            System.out.println("No match in this set");
-            return Optional.empty();
-        }
-
-        if(TERMINAL_GROUP.equals(match.get().getNextGroup())) {
-            System.out.println("Reached TERMINAL match");
-            return Optional.of(match.get().getFunction().apply(input));
-        } else {
-            System.out.println("Next group : " + match.get().getNextGroup());
-            return evaluateSet(match.get().getNextGroup(), input);
-        }
+                .findFirst()
+                .flatMap(rule -> {
+                    if (TERMINAL_GROUP.equals(rule.getNextGroup())) {
+                        System.out.println("Reached TERMINAL match");
+                        return Optional.of(rule.getFunction().apply(input));
+                    } else {
+                        System.out.println("Next group : " + rule.getNextGroup());
+                        return evaluateSet(rule.getNextGroup(), input);
+                    }
+                });
     }
 
 }
