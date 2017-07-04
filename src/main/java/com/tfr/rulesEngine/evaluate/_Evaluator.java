@@ -1,5 +1,6 @@
 package com.tfr.rulesEngine.evaluate;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -9,5 +10,7 @@ import java.util.Optional;
 public interface _Evaluator<I,O> {
 
     Optional<O> evaluate(I input);
+
+    List<O> evaluateMulti(I input);
 
 }

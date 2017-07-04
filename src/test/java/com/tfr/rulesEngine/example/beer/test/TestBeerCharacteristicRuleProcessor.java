@@ -6,6 +6,7 @@ import com.tfr.rulesEngine.example.beer.code.BeerCharacteristicRuleProcessor;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -25,22 +26,22 @@ public class TestBeerCharacteristicRuleProcessor {
     @Test
     public void testProcess_GivenRed_ExpectSuccess() {
         Beer beer = new Beer("Red", 8.0, 30, 45, 1.095);
-        runTest(beer, 3, Lists.newArrayList("Strong","Red","Malty"));
+        runTest(beer, 4, Lists.newArrayList("Not Hoppy","Strong","Red","Malty"));
     }
 
     @Test
     public void testProcess_GivenHefeweizen_ExpectSuccess() {
         Beer beer = new Beer("Hefeweizen", 4.5, 25, 25, 1.045);
-        runTest(beer, 2, Lists.newArrayList("Session","Light"));
+        runTest(beer, 4, Lists.newArrayList("Not Hoppy","Session","Light","Dry"));
     }
 
     private void runTest(Beer beer, int expectedOutputSize, List<String> expectedOutput) {
-        BeerCharacteristicRuleProcessor beerCharacteristicRuleProcessor = new BeerCharacteristicRuleProcessor();
-//        List<String> output = beerCharacteristicRuleProcessor.process(beer);
-//        assertEquals(expectedOutputSize, output.size());
-//        for(String s : expectedOutput) {
-//            assertTrue(output.contains(s));
-//        }
+        BeerCharacteristicRuleProcessor ruleProcessor = new BeerCharacteristicRuleProcessor();
+        List<String> output = ruleProcessor.process(beer);
+        assertEquals(expectedOutputSize, output.size());
+        for(String s : expectedOutput) {
+            assertTrue(output.contains(s));
+        }
     }
 
 }

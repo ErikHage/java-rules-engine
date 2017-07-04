@@ -13,7 +13,7 @@ public interface _Rule<I,O> extends Comparable<_Rule<I,O>> {
     String getGroup();
     int getPriority();
     Predicate<I> getPredicate();
-    Function<I,O> getFunction();
+    Function<I,O> getFunction(); //TODO refactor to Optional<O>
     String getNextGroup();
 
 }

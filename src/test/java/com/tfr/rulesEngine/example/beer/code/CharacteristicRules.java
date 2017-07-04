@@ -9,54 +9,82 @@ import com.tfr.rulesEngine.rule.Rule;
  */
 public interface CharacteristicRules {
 
-//    _Rule<Beer, String> IS_HOPPY = new Rule<>(
-//            "Beer Is Hoppy",
-//            0,
-//            (b) -> b.getIbu() > 50,
-//            (b) -> "Hoppy"
-//    );
-//
-//    _Rule<Beer, String> IS_DARK = new Rule<>(
-//            "Beer Is Dark",
-//            0,
-//            (b) -> b.getSrm() > 80,
-//            (b) -> "Dark"
-//    );
-//
-//    _Rule<Beer, String> IS_RED = new Rule<>(
-//            "Beer Is Red",
-//            0,
-//            (b) -> b.getSrm() >= 30 && b.getSrm() <=80,
-//            (b) -> "Red"
-//    );
-//
-//    _Rule<Beer, String> IS_LIGHT = new Rule<>(
-//            "Beer Is Light",
-//            0,
-//            (b) -> b.getSrm() < 30,
-//            (b) -> "Light"
-//    );
-//
-//    _Rule<Beer, String> IS_MALTY = new Rule<>(
-//            "Beer Is Malty",
-//            0,
-//            (b) -> b.getOg() > 1.075,
-//            (b) -> "Malty",
-//            ""
-//    );
-//
-//    _Rule<Beer, String> IS_SESSION = new Rule<>(
-//            "Beer Is Session",
-//            0,
-//            (b) -> b.getAbv() <= 5.0,
-//            (b) -> "Session"
-//    );
-//
-//    _Rule<Beer, String> IS_STRONG = new Rule<>(
-//            "Beer Is Strong",
-//            0,
-//            (b) -> b.getAbv() > 7.5,
-//            (b) -> "Strong"
-//    );
+    String ABV_GROUP = "abvGroup";
+    String SRM_GROUP = "srmGroup";
+    String OG_GROUP = "ogGroup";
+
+    _Rule<Beer, String> IS_HOPPY = new Rule.RuleBuilder<Beer,String>(
+            "Beer Is Hoppy",
+            (b) -> b.getIbu() > 50,
+            (b) -> "Hoppy")
+            .nextGroup(SRM_GROUP)
+            .build();
+
+    _Rule<Beer, String> IS_NOT_HOPPY = new Rule.RuleBuilder<Beer,String>(
+            "Beer Is Not Hoppy",
+            (b) -> b.getIbu() <= 50,
+            (b) -> "Not Hoppy")
+            .nextGroup(SRM_GROUP)
+            .build();
+
+
+
+    _Rule<Beer, String> IS_DARK = new Rule.RuleBuilder<Beer,String>(
+            "Beer Is Dark",
+            (b) -> b.getSrm() > 80,
+            (b) -> "Dark")
+            .group(SRM_GROUP)
+            .nextGroup(OG_GROUP)
+            .build();
+
+    _Rule<Beer, String> IS_RED = new Rule.RuleBuilder<Beer,String>(
+            "Beer Is Red",
+            (b) -> b.getSrm() >= 30 && b.getSrm() <=80,
+            (b) -> "Red")
+            .group(SRM_GROUP)
+            .nextGroup(OG_GROUP)
+            .build();
+
+    _Rule<Beer, String> IS_LIGHT = new Rule.RuleBuilder<Beer,String>(
+            "Beer Is Light",
+            (b) -> b.getSrm() < 30,
+            (b) -> "Light")
+            .group(SRM_GROUP)
+            .nextGroup(OG_GROUP)
+            .build();
+
+
+
+    _Rule<Beer, String> IS_MALTY = new Rule.RuleBuilder<Beer,String>(
+            "Beer Is Malty",
+            (b) -> b.getOg() > 1.075,
+            (b) -> "Malty")
+            .group(OG_GROUP)
+            .nextGroup(ABV_GROUP)
+            .build();
+
+    _Rule<Beer, String> IS_DRY = new Rule.RuleBuilder<Beer,String>(
+            "Beer Is Dry",
+            (b) -> b.getOg() <= 1.075,
+            (b) -> "Dry")
+            .group(OG_GROUP)
+            .nextGroup(ABV_GROUP)
+            .build();
+
+
+
+    _Rule<Beer, String> IS_SESSION = new Rule.RuleBuilder<Beer,String>(
+            "Beer Is Session",
+            (b) -> b.getAbv() <= 5.0,
+            (b) -> "Session")
+            .group(ABV_GROUP)
+            .build();
+
+    _Rule<Beer, String> IS_STRONG = new Rule.RuleBuilder<Beer,String>(
+            "Beer Is Strong",
+            (b) -> b.getAbv() > 7.5,
+            (b) -> "Strong")
+            .group(ABV_GROUP)
+            .build();
 
 }
