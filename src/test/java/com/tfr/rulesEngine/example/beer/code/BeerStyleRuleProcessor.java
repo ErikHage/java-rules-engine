@@ -18,8 +18,11 @@ public class BeerStyleRuleProcessor {
     public BeerStyleRuleProcessor() {
         _RuleSet<Beer,String> ruleSet = new RuleSet.RuleSetBuilder<Beer,String>()
                 .addRule(StyleRules.IS_IPA_STYLE)
+                .addRule(StyleRules.IS_NOT_IPA_STYLE)
                 .addRule(StyleRules.IS_AMBER_STYLE)
+                .addRule(StyleRules.IS_NOT_AMBER_STYLE)
                 .addRule(StyleRules.IS_RED_STYLE)
+                .addRule(StyleRules.IS_NOT_RED_STYLE)
                 .build();
         this.evaluator = new RuleEvaluator<>(ruleSet);
     }

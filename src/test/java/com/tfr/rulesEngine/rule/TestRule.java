@@ -2,6 +2,7 @@ package com.tfr.rulesEngine.rule;
 
 import org.junit.Test;
 
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -15,7 +16,7 @@ import static org.junit.Assert.*;
 public class TestRule {
 
     private Predicate<Integer> predicateTest = i -> true;
-    private Function<Integer, Integer> functionTest = i -> 2;
+    private Function<Integer, Optional<Integer>> functionTest = i -> Optional.of(2);
 
     @Test
     public void testRuleBuilder_GivenRequiredFields_ExpectRule() {
