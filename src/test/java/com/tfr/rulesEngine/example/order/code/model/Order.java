@@ -1,5 +1,6 @@
 package com.tfr.rulesEngine.example.order.code.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,11 +12,13 @@ import java.util.Map;
  */
 public class Order {
 
+    private final LocalDate orderDate;
     private final Map<Item, Integer> items;
     private final List<Discount> discounts;
     private final Map<String, String> properties;
 
-    public Order() {
+    public Order(LocalDate orderDate) {
+        this.orderDate = orderDate;
         this.items = new HashMap<>();
         this.discounts = new ArrayList<>();
         this.properties = new HashMap<>();
@@ -48,5 +51,19 @@ public class Order {
 
     public Map<String, String> getProperties() {
         return properties;
+    }
+
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderDate=" + orderDate +
+                ", items=" + items +
+                ", discounts=" + discounts +
+                ", properties=" + properties +
+                '}';
     }
 }

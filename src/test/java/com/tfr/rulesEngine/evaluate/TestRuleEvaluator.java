@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  *
  * Created by Erik on 6/29/2017.
  */
-public class TestRuleSetEvaluator {
+public class TestRuleEvaluator {
 
     @Test
     public void testEvaluate_GivenSingleMatch_GivenOneRuleSingle() {

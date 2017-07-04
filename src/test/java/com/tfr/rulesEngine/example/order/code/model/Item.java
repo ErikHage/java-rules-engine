@@ -6,7 +6,7 @@ package com.tfr.rulesEngine.example.order.code.model;
  */
 public class Item {
 
-    enum Type {
+    public enum Type {
         CLOTHING,
         KITCHEN,
         FOOD,

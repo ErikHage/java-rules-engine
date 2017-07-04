@@ -6,7 +6,7 @@ package com.tfr.rulesEngine.example.order.code.model;
  */
 public class Discount {
 
-    enum Type {
+    public enum Type {
         FLAT_AMOUNT,
         PERCENTAGE
     }

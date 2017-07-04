@@ -61,19 +61,22 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
         System.out.println(" , of size " + ruleGroup.getRules().size());
 
         ruleGroup.stream()
-                .filter(r -> r.getPredicate().test(input))
+                .filter(r -> {
+                    System.out.println("Testing rule: " + r);
+                    return r.getPredicate().test(input);
+                })
                 .findFirst()
                 .ifPresent(rule -> {
                     System.out.println("Matched: " + rule);
+                    rule.getFunction()
+                            .apply(input)
+                            .ifPresent(output::add);
                     if (TERMINAL_GROUP.equals(rule.getNextGroup())) {
                         System.out.println("Reached TERMINAL match");
                     } else {
                         System.out.println("Next group : " + rule.getNextGroup());
                         evaluateGroup(rule.getNextGroup(), input, output);
                     }
-                    rule.getFunction()
-                            .apply(input)
-                            .ifPresent(output::add);
                 });
 
         return output;

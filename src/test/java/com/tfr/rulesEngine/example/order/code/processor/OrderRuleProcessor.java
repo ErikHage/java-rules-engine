@@ -1,7 +1,6 @@
 package com.tfr.rulesEngine.example.order.code.processor;
 
-import com.tfr.rulesEngine.evaluate.ChainingRuleEvaluator;
-import com.tfr.rulesEngine.evaluate.RuleSetEvaluator;
+import com.tfr.rulesEngine.evaluate._Evaluator;
 import com.tfr.rulesEngine.example.order.code.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,19 +13,19 @@ import org.springframework.stereotype.Component;
 @Component("OrderRuleProcessor")
 public class OrderRuleProcessor {
 
-    private RuleSetEvaluator<Order, Order> taxEvaluator;
-    private ChainingRuleEvaluator<Order> discountEvaluator;
+    private _Evaluator<Order, Order> taxEvaluator;
+    private _Evaluator<Order, Order> discountEvaluator;
 
     @Autowired
-    public OrderRuleProcessor(@Qualifier("TaxRuleEvaluator")RuleSetEvaluator<Order, Order> taxEvaluator,
-                              @Qualifier("DiscountRuleEvaluator") ChainingRuleEvaluator<Order> discountEvaluator) {
+    public OrderRuleProcessor(@Qualifier("TaxRuleEvaluator") _Evaluator<Order, Order> taxEvaluator,
+                              @Qualifier("DiscountRuleEvaluator") _Evaluator<Order, Order> discountEvaluator) {
         this.taxEvaluator = taxEvaluator;
         this.discountEvaluator = discountEvaluator;
     }
 
     public Order process(Order order) {
-        order = taxEvaluator.evaluate(order).get(0);
-        order = discountEvaluator.evaluate(order).get(0);
+        taxEvaluator.evaluateMulti(order);
+        discountEvaluator.evaluateMulti(order);
         return order;
     }
 
