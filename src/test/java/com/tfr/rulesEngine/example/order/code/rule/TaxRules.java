@@ -1,7 +1,5 @@
 package com.tfr.rulesEngine.example.order.code.rule;
 
-import com.google.common.collect.Sets;
-import com.tfr.rulesEngine.example.order.code.model.Item;
 import com.tfr.rulesEngine.example.order.code.model.Order;
 import com.tfr.rulesEngine.rule.Rule;
 import com.tfr.rulesEngine.rule._Rule;
@@ -20,11 +18,8 @@ public interface TaxRules {
 
     _Rule<Order,Order> IS_TAXABLE = new Rule.RuleBuilder<Order,Order>(
             "taxableRule",
-            (o) -> STATES_IN_TAX_SCOPE.contains(o.getProperty("STATE")),
-            (o) -> {
-                o.setProperty("IN_SCOPE_FOR_TAX", "Y");
-                return Optional.empty();
-            })
+            (o) -> STATES_IN_TAX_SCOPE.contains(o.getProperty("STATE")))
+            .consumer(o -> o.setProperty("IN_SCOPE_FOR_TAX", "Y"))
             .group(DEFAULT_GROUP)
             .priority(100)
             .nextGroup("Product Group")
@@ -32,11 +27,8 @@ public interface TaxRules {
 
     _Rule<Order,Order> NOT_TAXABLE = new Rule.RuleBuilder<Order,Order>(
             "notTaxableRule",
-            (o) -> true,
-            (o) -> {
-                o.setProperty("IN_SCOPE_FOR_TAX", "N");
-                return Optional.empty();
-            })
+            (o) -> true)
+            .consumer(o -> o.setProperty("IN_SCOPE_FOR_TAX", "N"))
             .group(DEFAULT_GROUP)
             .priority(50)
             .build();
@@ -49,26 +41,17 @@ public interface TaxRules {
                     && o.getItems()
                     .keySet()
                     .stream()
-                    .filter(i -> {
-                        System.out.println(i);
-                        return TAXABLE_PRODUCT_TYPES.contains(i.getType());
-                    })
-                    .count() > 0,
-            (o) -> {
-                o.setProperty("CONTAINS_TAXABLE_PRODUCTS", "Y");
-                return Optional.empty();
-            })
+                    .filter(i -> TAXABLE_PRODUCT_TYPES.contains(i.getType()))
+                    .count() > 0)
+            .consumer(o -> o.setProperty("CONTAINS_TAXABLE_PRODUCTS", "Y"))
             .group("Product Group")
             .priority(100)
             .build();
 
     _Rule<Order,Order> ORDER_DOES_NOT_CONTAIN_TAXABLE_PRODUCT = new Rule.RuleBuilder<Order,Order>(
             "noTaxableProductRule",
-            (o) -> true,
-            (o) -> {
-                o.setProperty("CONTAINS_TAXABLE_PRODUCTS", "N");
-                return Optional.empty();
-            })
+            (o) -> true)
+            .consumer(o -> o.setProperty("CONTAINS_TAXABLE_PRODUCTS", "N"))
             .group("Product Group")
             .priority(50)
             .build();

@@ -15,15 +15,14 @@ public interface StyleRules {
 
     _Rule<Beer,String> IS_IPA_STYLE = new Rule.RuleBuilder<Beer,String>(
             "IPA_RULE",
-            (b) -> b.isStyle(IPA),
-            (b) -> Optional.of(IPA.getName()))
+            (b) -> b.isStyle(IPA))
+            .function(b -> IPA.getName())
             .nextGroup("Amber")
             .build();
 
     _Rule<Beer,String> IS_NOT_IPA_STYLE = new Rule.RuleBuilder<Beer,String>(
             "NOT_IPA_RULE",
-            (b) -> !b.isStyle(IPA),
-            (b) -> Optional.empty())
+            (b) -> !b.isStyle(IPA))
             .nextGroup("Amber")
             .build();
 
@@ -32,16 +31,15 @@ public interface StyleRules {
 
     _Rule<Beer,String> IS_AMBER_STYLE = new Rule.RuleBuilder<Beer,String>(
             "AMBER_RULE",
-            (b) -> b.isStyle(AMBER),
-            (b) -> Optional.of(AMBER.getName()))
+            (b) -> b.isStyle(AMBER))
+            .function(b -> AMBER.getName())
             .group("Amber")
             .nextGroup("Red")
             .build();
 
     _Rule<Beer,String> IS_NOT_AMBER_STYLE = new Rule.RuleBuilder<Beer,String>(
             "NOT_AMBER_RULE",
-            (b) -> !b.isStyle(AMBER),
-            (b) -> Optional.empty())
+            (b) -> !b.isStyle(AMBER))
             .group("Amber")
             .nextGroup("Red")
             .build();
@@ -49,15 +47,14 @@ public interface StyleRules {
 
     _Rule<Beer,String> IS_RED_STYLE = new Rule.RuleBuilder<Beer,String>(
             "RED_RULE",
-            (b) -> b.isStyle(RED),
-            (b) -> Optional.of(RED.getName()))
+            (b) -> b.isStyle(RED))
+            .function(b -> RED.getName())
             .group("Red")
             .build();
 
     _Rule<Beer,String> IS_NOT_RED_STYLE = new Rule.RuleBuilder<Beer,String>(
             "NOT_RED_RULE",
-            (b) -> !b.isStyle(RED),
-            (b) -> Optional.empty())
+            (b) -> !b.isStyle(RED))
             .group("Red")
             .build();
 

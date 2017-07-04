@@ -37,6 +37,7 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
                 .findFirst()
                 .flatMap(rule -> {
                     System.out.println("Matched: " + rule);
+                    rule.getFunction().apply(input);
                     if (TERMINAL_GROUP.equals(rule.getNextGroup())) {
                         System.out.println("Reached TERMINAL match");
                         return rule.getFunction().apply(input);
@@ -68,9 +69,7 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
                 .findFirst()
                 .ifPresent(rule -> {
                     System.out.println("Matched: " + rule);
-                    rule.getFunction()
-                            .apply(input)
-                            .ifPresent(output::add);
+                    rule.getFunction().apply(input).ifPresent(output::add);
                     if (TERMINAL_GROUP.equals(rule.getNextGroup())) {
                         System.out.println("Reached TERMINAL match");
                     } else {

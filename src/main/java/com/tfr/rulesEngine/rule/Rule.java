@@ -1,6 +1,7 @@
 package com.tfr.rulesEngine.rule;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -102,13 +103,27 @@ public class Rule<I,O> implements _Rule<I,O> {
         private Function<I,Optional<O>> function;
         private String nextGroup;
 
-        public RuleBuilder(String name, Predicate<I> predicate, Function<I,Optional<O>> function) {
+        public RuleBuilder(String name, Predicate<I> predicate) {
             this.name = name;
             this.group = DEFAULT_GROUP;
             this.priority = DEFAULT_PRIORITY;
             this.predicate = predicate;
-            this.function = function;
             this.nextGroup = TERMINAL_GROUP;
+            this.function = (I i) -> Optional.empty();
+        }
+
+        public RuleBuilder<I,O> function(Function<I,O> function) {
+            this.function = (I i) ->
+                    Optional.ofNullable(function.apply(i));
+            return this;
+        }
+
+        public RuleBuilder<I,O> consumer(Consumer<I> consumer) {
+            this.function = (I i) -> {
+                consumer.accept(i);
+                return Optional.empty();
+            };
+            return this;
         }
 
         public RuleBuilder<I,O> group(String group) {
