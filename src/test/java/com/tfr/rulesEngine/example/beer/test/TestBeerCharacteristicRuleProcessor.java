@@ -20,19 +20,19 @@ public class TestBeerCharacteristicRuleProcessor {
     @Test
     public void testProcess_GivenIPA_ExpectSuccess() {
         Beer beer = new Beer("IPA", 4.9, 65, 45, 1.076);
-        runTest(beer, 4, Lists.newArrayList("Session","Hoppy","Red","Malty"));
+        runTest(beer, 3, Lists.newArrayList("Session","Hoppy","Malty"));
     }
 
     @Test
     public void testProcess_GivenRed_ExpectSuccess() {
         Beer beer = new Beer("Red", 8.0, 30, 45, 1.095);
-        runTest(beer, 4, Lists.newArrayList("Not Hoppy","Strong","Red","Malty"));
+        runTest(beer, 2, Lists.newArrayList("Strong","Malty"));
     }
 
     @Test
     public void testProcess_GivenHefeweizen_ExpectSuccess() {
         Beer beer = new Beer("Hefeweizen", 4.5, 25, 25, 1.045);
-        runTest(beer, 4, Lists.newArrayList("Not Hoppy","Session","Light","Dry"));
+        runTest(beer, 2, Lists.newArrayList("Session","Light"));
     }
 
     private void runTest(Beer beer, int expectedOutputSize, List<String> expectedOutput) {

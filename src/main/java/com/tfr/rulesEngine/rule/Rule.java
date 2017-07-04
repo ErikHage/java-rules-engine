@@ -1,5 +1,6 @@
 package com.tfr.rulesEngine.rule;
 
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -15,10 +16,10 @@ public class Rule<I,O> implements _Rule<I,O> {
     protected final String group;
     protected final int priority;
     protected final Predicate<I> predicate;
-    protected final Function<I,O> function;
+    protected final Function<I,Optional<O>> function;
     protected final String nextGroup;
 
-    public Rule(String name, String group, int priority, Predicate<I> predicate, Function<I, O> function, String nextGroup) {
+    public Rule(String name, String group, int priority, Predicate<I> predicate, Function<I,Optional<O>> function, String nextGroup) {
         this.name = name;
         this.group = group;
         this.priority = priority;
@@ -48,7 +49,7 @@ public class Rule<I,O> implements _Rule<I,O> {
     }
 
     @Override
-    public Function<I,O> getFunction() {
+    public Function<I,Optional<O>> getFunction() {
         return function;
     }
 
@@ -98,10 +99,10 @@ public class Rule<I,O> implements _Rule<I,O> {
         private String group;
         private int priority;
         private Predicate<I> predicate;
-        private Function<I,O> function;
+        private Function<I,Optional<O>> function;
         private String nextGroup;
 
-        public RuleBuilder(String name, Predicate<I> predicate, Function<I, O> function) {
+        public RuleBuilder(String name, Predicate<I> predicate, Function<I,Optional<O>> function) {
             this.name = name;
             this.group = DEFAULT_GROUP;
             this.priority = DEFAULT_PRIORITY;

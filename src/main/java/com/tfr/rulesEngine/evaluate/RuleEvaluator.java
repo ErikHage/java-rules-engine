@@ -36,9 +36,10 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
                 .filter(r -> r.getPredicate().test(input))
                 .findFirst()
                 .flatMap(rule -> {
+                    System.out.println("Matched: " + rule);
                     if (TERMINAL_GROUP.equals(rule.getNextGroup())) {
                         System.out.println("Reached TERMINAL match");
-                        return Optional.of(rule.getFunction().apply(input));
+                        return rule.getFunction().apply(input);
                     } else {
                         System.out.println("Next group : " + rule.getNextGroup());
                         return evaluateGroup(rule.getNextGroup(), input);
@@ -63,13 +64,16 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
                 .filter(r -> r.getPredicate().test(input))
                 .findFirst()
                 .ifPresent(rule -> {
+                    System.out.println("Matched: " + rule);
                     if (TERMINAL_GROUP.equals(rule.getNextGroup())) {
                         System.out.println("Reached TERMINAL match");
                     } else {
                         System.out.println("Next group : " + rule.getNextGroup());
                         evaluateGroup(rule.getNextGroup(), input, output);
                     }
-                    output.add(rule.getFunction().apply(input));
+                    rule.getFunction()
+                            .apply(input)
+                            .ifPresent(output::add);
                 });
 
         return output;

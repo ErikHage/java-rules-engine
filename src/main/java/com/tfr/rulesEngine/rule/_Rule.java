@@ -1,5 +1,6 @@
 package com.tfr.rulesEngine.rule;
 
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -13,7 +14,7 @@ public interface _Rule<I,O> extends Comparable<_Rule<I,O>> {
     String getGroup();
     int getPriority();
     Predicate<I> getPredicate();
-    Function<I,O> getFunction(); //TODO refactor to Optional<O>
+    Function<I,Optional<O>> getFunction();
     String getNextGroup();
 
 }

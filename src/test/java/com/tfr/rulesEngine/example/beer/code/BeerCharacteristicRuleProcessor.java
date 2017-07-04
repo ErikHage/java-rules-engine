@@ -27,6 +27,7 @@ public class BeerCharacteristicRuleProcessor {
                 .addRule(CharacteristicRules.IS_MALTY)
                 .addRule(CharacteristicRules.IS_DRY)
                 .addRule(CharacteristicRules.IS_SESSION)
+                .addRule(CharacteristicRules.IS_MID_ALCOHOL)
                 .addRule(CharacteristicRules.IS_STRONG)
                 .build();
 
