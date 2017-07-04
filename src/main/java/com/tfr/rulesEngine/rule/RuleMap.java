@@ -19,7 +19,7 @@ public class RuleMap<I,O> extends HashMap<String, RuleSet<I,O>> implements _Rule
     }
 
     @Override
-    public _RuleSet<I, O> getRuleGroup(String groupName) {
+    public _RuleSet<I,O> getRuleGroup(String groupName) {
         return get(groupName);
     }
 

@@ -81,7 +81,6 @@ public class TestRuleSetEvaluator {
         runTest(ruleSet, 9, 19);
     }
 
-
     private <I,O> void runTest(_RuleSet<I,O> ruleSet, I input, O expected) {
         Optional<O> expectedOutput = Optional.ofNullable(expected);
 
