@@ -2,13 +2,13 @@ package com.tfr.rulesEngine.example.beer.test;
 
 import com.tfr.rulesEngine.example.beer.code.Beer;
 import com.tfr.rulesEngine.example.beer.code.BeerStyleRuleProcessor;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static com.tfr.rulesEngine.example.beer.code.Styles.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
@@ -18,7 +18,7 @@ public class TestBeerStyleRuleProcessor {
 
     //TODO failing due to lack of catch-all rules to point to next group
 
-    private BeerStyleRuleProcessor beerStyleRuleProcessor = new BeerStyleRuleProcessor();
+    private final BeerStyleRuleProcessor beerStyleRuleProcessor = new BeerStyleRuleProcessor();
 
     @Test
     public void testProcess_GivenChecksAndBalances_ExpectIpa() {

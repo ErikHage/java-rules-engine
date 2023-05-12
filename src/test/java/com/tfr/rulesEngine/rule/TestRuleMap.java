@@ -1,12 +1,12 @@
 package com.tfr.rulesEngine.rule;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static com.tfr.rulesEngine.config.Constants.DEFAULT_GROUP;
 import static com.tfr.rulesEngine.testData.TestRules.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
@@ -16,7 +16,7 @@ public class TestRuleMap {
 
     private _RuleMap<Integer, Integer> ruleMap;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         _RuleSet<Integer, Integer> ruleSet = new RuleSet.RuleSetBuilder<Integer, Integer>()
                 .addRule(DOUBLE_INT)

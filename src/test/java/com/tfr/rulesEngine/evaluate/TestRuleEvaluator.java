@@ -2,12 +2,12 @@ package com.tfr.rulesEngine.evaluate;
 
 import com.tfr.rulesEngine.rule._RuleSet;
 import com.tfr.rulesEngine.rule.RuleSet;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
 import static com.tfr.rulesEngine.testData.TestRules.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *

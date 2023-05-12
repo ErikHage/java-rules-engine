@@ -1,12 +1,12 @@
 package com.tfr.rulesEngine.rule;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static com.tfr.rulesEngine.config.Constants.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *
