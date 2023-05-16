@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 /**
  *
- * Created by Erik on 6/14/2017.
  */
 public interface _Rule<I,O> extends Comparable<_Rule<I,O>> {
 

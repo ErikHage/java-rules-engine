@@ -41,9 +41,9 @@ When a rule is evaluated, its predicate is tested against the input. If the resu
 
 ### Rules
 
-At minimum a rule requires only 2 inputs: A name and a predicate. The name used as a unique identifier. The predicate is the expression evaluated to determine if this rule is to be applied for the given input I. Optional members are a function or consumer, a priority, a group name, and a next group name. If they are not defined, they will be set to the default values shown below.
+At minimum a rule requires only 2 inputs: A name and a predicate. The name used as a unique identifier within a set. The predicate is the expression evaluated to determine if this rule is to be applied for the given input I. Optional members are a function or consumer, a priority, a group name, and a next group name. If they are not defined, they will be set to the default values shown below.
  
-##### Function/Consumer
+##### OnMatchHandler
 
 **Default**: `(i) -> Optional.empty()`
 

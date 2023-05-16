@@ -9,7 +9,6 @@ import static com.tfr.rulesEngine.config.Constants.*;
 
 /**
  *
- * Created by Erik on 6/14/2017.
  */
 public class Rule<I,O> implements _Rule<I,O> {
 

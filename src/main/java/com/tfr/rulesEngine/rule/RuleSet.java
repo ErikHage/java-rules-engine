@@ -57,7 +57,7 @@ public class RuleSet<I,O> implements _RuleSet<I,O> {
 
     public static class RuleSetBuilder<I,O> {
 
-        private Set<_Rule<I,O>> rules;
+        private final Set<_Rule<I,O>> rules;
 
         public RuleSetBuilder() {
             this.rules = Sets.newHashSet();
