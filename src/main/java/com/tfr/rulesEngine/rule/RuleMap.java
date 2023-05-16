@@ -11,10 +11,10 @@ public class RuleMap<I,O> extends HashMap<String, RuleSet<I,O>> implements _Rule
 
     public RuleMap(_RuleSet<I,O> ruleSet) {
         ruleSet.stream().forEach(r -> {
-            if(!containsKey(r.getGroup())) {
-                put(r.getGroup(), new RuleSet<>());
+            if(!containsKey(r.getGroupName())) {
+                put(r.getGroupName(), new RuleSet<>());
             }
-            get(r.getGroup()).add(r);
+            get(r.getGroupName()).add(r);
         });
     }
 

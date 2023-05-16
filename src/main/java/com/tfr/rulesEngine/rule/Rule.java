@@ -14,19 +14,19 @@ import static com.tfr.rulesEngine.config.Constants.*;
 public class Rule<I,O> implements _Rule<I,O> {
 
     protected final String name;
-    protected final String group;
+    protected final String groupName;
     protected final int priority;
-    protected final Predicate<I> predicate;
-    protected final Function<I,Optional<O>> function;
-    protected final String nextGroup;
+    protected final Predicate<I> matchCondition;
+    protected final Function<I,Optional<O>> onMatchHandler;
+    protected final String nextGroupName;
 
-    public Rule(String name, String group, int priority, Predicate<I> predicate, Function<I,Optional<O>> function, String nextGroup) {
+    public Rule(String name, String groupName, int priority, Predicate<I> matchCondition, Function<I,Optional<O>> onMatchHandler, String nextGroupName) {
         this.name = name;
-        this.group = group;
+        this.groupName = groupName;
         this.priority = priority;
-        this.predicate = predicate;
-        this.function = function;
-        this.nextGroup = nextGroup;
+        this.matchCondition = matchCondition;
+        this.onMatchHandler = onMatchHandler;
+        this.nextGroupName = nextGroupName;
     }
 
     @Override
@@ -35,8 +35,8 @@ public class Rule<I,O> implements _Rule<I,O> {
     }
 
     @Override
-    public String getGroup() {
-        return group;
+    public String getGroupName() {
+        return groupName;
     }
 
     @Override
@@ -45,18 +45,18 @@ public class Rule<I,O> implements _Rule<I,O> {
     }
 
     @Override
-    public Predicate<I> getPredicate() {
-        return predicate;
+    public Predicate<I> getMatchCondition() {
+        return matchCondition;
     }
 
     @Override
-    public Function<I,Optional<O>> getFunction() {
-        return function;
+    public Function<I,Optional<O>> getOnMatchHandler() {
+        return onMatchHandler;
     }
 
     @Override
-    public String getNextGroup() {
-        return nextGroup;
+    public String getNextGroupName() {
+        return nextGroupName;
     }
 
     @Override
@@ -88,46 +88,46 @@ public class Rule<I,O> implements _Rule<I,O> {
     public String toString() {
         return "Rule{" +
                 "name='" + name + '\'' +
-                ", group='" + group + '\'' +
+                ", group='" + groupName + '\'' +
                 ", priority=" + priority +
-                ", nextGroup='" + nextGroup + '\'' +
+                ", nextGroup='" + nextGroupName + '\'' +
                 '}';
     }
 
     public static class RuleBuilder<I,O> {
 
-        private String name;
-        private String group;
+        private final String name;
+        private final Predicate<I> matchCondition;
+        private String groupName;
         private int priority;
-        private Predicate<I> predicate;
-        private Function<I,Optional<O>> function;
-        private String nextGroup;
+        private Function<I,Optional<O>> onMatchHandler;
+        private String nextGroupName;
 
-        public RuleBuilder(String name, Predicate<I> predicate) {
+        public RuleBuilder(String name, Predicate<I> matchCondition) {
             this.name = name;
-            this.group = DEFAULT_GROUP;
+            this.groupName = DEFAULT_GROUP;
             this.priority = DEFAULT_PRIORITY;
-            this.predicate = predicate;
-            this.nextGroup = TERMINAL_GROUP;
-            this.function = (I i) -> Optional.empty();
+            this.matchCondition = matchCondition;
+            this.nextGroupName = TERMINAL_GROUP;
+            this.onMatchHandler = (I i) -> Optional.empty();
         }
 
-        public RuleBuilder<I,O> function(Function<I,O> function) {
-            this.function = (I i) ->
-                    Optional.ofNullable(function.apply(i));
+        public RuleBuilder<I,O> onMatchHandler(Function<I,O> onMatchHandler) {
+            this.onMatchHandler = (I i) ->
+                    Optional.ofNullable(onMatchHandler.apply(i));
             return this;
         }
 
-        public RuleBuilder<I,O> consumer(Consumer<I> consumer) {
-            this.function = (I i) -> {
-                consumer.accept(i);
+        public RuleBuilder<I,O> consumer(Consumer<I> onMatchHandler) {
+            this.onMatchHandler = (I i) -> {
+                onMatchHandler.accept(i);
                 return Optional.empty();
             };
             return this;
         }
 
-        public RuleBuilder<I,O> group(String group) {
-            this.group = group;
+        public RuleBuilder<I,O> groupName(String group) {
+            this.groupName = group;
             return this;
         }
 
@@ -136,13 +136,13 @@ public class Rule<I,O> implements _Rule<I,O> {
             return this;
         }
 
-        public RuleBuilder<I,O> nextGroup(String nextGroup) {
-            this.nextGroup = nextGroup;
+        public RuleBuilder<I,O> nextGroupName(String nextGroupName) {
+            this.nextGroupName = nextGroupName;
             return this;
         }
 
         public Rule<I,O> build() {
-            return new Rule<>(name, group, priority, predicate, function, nextGroup);
+            return new Rule<>(name, groupName, priority, matchCondition, onMatchHandler, nextGroupName);
         }
     }
 

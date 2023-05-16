@@ -11,10 +11,10 @@ import java.util.function.Predicate;
 public interface _Rule<I,O> extends Comparable<_Rule<I,O>> {
 
     String getName();
-    String getGroup();
+    String getGroupName();
     int getPriority();
-    Predicate<I> getPredicate();
-    Function<I,Optional<O>> getFunction();
-    String getNextGroup();
+    Predicate<I> getMatchCondition();
+    Function<I,Optional<O>> getOnMatchHandler();
+    String getNextGroupName();
 
 }

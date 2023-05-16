@@ -33,17 +33,17 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
         System.out.println(" , of size " + ruleGroup.getRules().size());
 
         return ruleGroup.stream()
-                .filter(r -> r.getPredicate().test(input))
+                .filter(r -> r.getMatchCondition().test(input))
                 .findFirst()
                 .flatMap(rule -> {
                     System.out.println("Matched: " + rule);
-                    rule.getFunction().apply(input);
-                    if (TERMINAL_GROUP.equals(rule.getNextGroup())) {
+                    rule.getOnMatchHandler().apply(input);
+                    if (TERMINAL_GROUP.equals(rule.getNextGroupName())) {
                         System.out.println("Reached TERMINAL match");
-                        return rule.getFunction().apply(input);
+                        return rule.getOnMatchHandler().apply(input);
                     } else {
-                        System.out.println("Next group : " + rule.getNextGroup());
-                        return evaluateGroup(rule.getNextGroup(), input);
+                        System.out.println("Next group : " + rule.getNextGroupName());
+                        return evaluateGroup(rule.getNextGroupName(), input);
                     }
                 });
     }
@@ -64,17 +64,17 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
         ruleGroup.stream()
                 .filter(r -> {
                     System.out.println("Testing rule: " + r);
-                    return r.getPredicate().test(input);
+                    return r.getMatchCondition().test(input);
                 })
                 .findFirst()
                 .ifPresent(rule -> {
                     System.out.println("Matched: " + rule);
-                    rule.getFunction().apply(input).ifPresent(output::add);
-                    if (TERMINAL_GROUP.equals(rule.getNextGroup())) {
+                    rule.getOnMatchHandler().apply(input).ifPresent(output::add);
+                    if (TERMINAL_GROUP.equals(rule.getNextGroupName())) {
                         System.out.println("Reached TERMINAL match");
                     } else {
-                        System.out.println("Next group : " + rule.getNextGroup());
-                        evaluateGroup(rule.getNextGroup(), input, output);
+                        System.out.println("Next group : " + rule.getNextGroupName());
+                        evaluateGroup(rule.getNextGroupName(), input, output);
                     }
                 });
 

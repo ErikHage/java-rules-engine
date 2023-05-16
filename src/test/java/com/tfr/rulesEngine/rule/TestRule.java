@@ -20,66 +20,66 @@ public class TestRule {
     @Test
     public void testRuleBuilder_GivenRequiredFields_ExpectRule() {
         _Rule<Integer, Integer> rule = new Rule.RuleBuilder<Integer, Integer>("name", predicateTest)
-                .function(functionTest)
+                .onMatchHandler(functionTest)
                 .build();
         assertEquals("name", rule.getName());
-        assertEquals(predicateTest, rule.getPredicate());
-        assertEquals(DEFAULT_GROUP, rule.getGroup());
-        assertEquals(TERMINAL_GROUP, rule.getNextGroup());
+        assertEquals(predicateTest, rule.getMatchCondition());
+        assertEquals(DEFAULT_GROUP, rule.getGroupName());
+        assertEquals(TERMINAL_GROUP, rule.getNextGroupName());
         assertEquals(DEFAULT_PRIORITY, rule.getPriority());
     }
 
     @Test
     public void testRuleBuilder_GivenRequiredFieldsAndPriority_ExpectRule() {
         _Rule<Integer, Integer> rule = new Rule.RuleBuilder<Integer, Integer>("name", predicateTest)
-                .function(functionTest)
+                .onMatchHandler(functionTest)
                 .priority(100)
                 .build();
         assertEquals("name", rule.getName());
-        assertEquals(predicateTest, rule.getPredicate());
-        assertEquals(DEFAULT_GROUP, rule.getGroup());
-        assertEquals(TERMINAL_GROUP, rule.getNextGroup());
+        assertEquals(predicateTest, rule.getMatchCondition());
+        assertEquals(DEFAULT_GROUP, rule.getGroupName());
+        assertEquals(TERMINAL_GROUP, rule.getNextGroupName());
         assertEquals(100, rule.getPriority());
     }
 
     @Test
     public void testRuleBuilder_GivenRequiredFieldsAndGroup_ExpectRule() {
         _Rule<Integer, Integer> rule = new Rule.RuleBuilder<Integer, Integer>("name", predicateTest)
-                .function(functionTest)
-                .group("some group")
+                .onMatchHandler(functionTest)
+                .groupName("some group")
                 .build();
         assertEquals("name", rule.getName());
-        assertEquals(predicateTest, rule.getPredicate());
-        assertEquals("some group", rule.getGroup());
-        assertEquals(TERMINAL_GROUP, rule.getNextGroup());
+        assertEquals(predicateTest, rule.getMatchCondition());
+        assertEquals("some group", rule.getGroupName());
+        assertEquals(TERMINAL_GROUP, rule.getNextGroupName());
         assertEquals(DEFAULT_PRIORITY, rule.getPriority());
     }
 
     @Test
     public void testRuleBuilder_GivenRequiredFieldsAndNextGroup_ExpectRule() {
         _Rule<Integer, Integer> rule = new Rule.RuleBuilder<Integer, Integer>("name", predicateTest)
-                .function(functionTest)
-                .nextGroup("another group")
+                .onMatchHandler(functionTest)
+                .nextGroupName("another group")
                 .build();
         assertEquals("name", rule.getName());
-        assertEquals(predicateTest, rule.getPredicate());
-        assertEquals(DEFAULT_GROUP, rule.getGroup());
-        assertEquals("another group", rule.getNextGroup());
+        assertEquals(predicateTest, rule.getMatchCondition());
+        assertEquals(DEFAULT_GROUP, rule.getGroupName());
+        assertEquals("another group", rule.getNextGroupName());
         assertEquals(DEFAULT_PRIORITY, rule.getPriority());
     }
 
     @Test
     public void testRuleBuilder_GivenRequiredFieldsAndOptionalFields_ExpectRule() {
         _Rule<Integer, Integer> rule = new Rule.RuleBuilder<Integer, Integer>("name", predicateTest)
-                .function(functionTest)
-                .group("some group")
+                .onMatchHandler(functionTest)
+                .groupName("some group")
                 .priority(100)
-                .nextGroup("another group")
+                .nextGroupName("another group")
                 .build();
         assertEquals("name", rule.getName());
-        assertEquals(predicateTest, rule.getPredicate());
-        assertEquals("some group", rule.getGroup());
-        assertEquals("another group", rule.getNextGroup());
+        assertEquals(predicateTest, rule.getMatchCondition());
+        assertEquals("some group", rule.getGroupName());
+        assertEquals("another group", rule.getNextGroupName());
         assertEquals(100, rule.getPriority());
     }
 }
