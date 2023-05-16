@@ -118,7 +118,7 @@ public class Rule<I,O> implements _Rule<I,O> {
             return this;
         }
 
-        public RuleBuilder<I,O> consumer(Consumer<I> onMatchHandler) {
+        public RuleBuilder<I,O> onMatchHandler(Consumer<I> onMatchHandler) {
             this.onMatchHandler = (I i) -> {
                 onMatchHandler.accept(i);
                 return Optional.empty();

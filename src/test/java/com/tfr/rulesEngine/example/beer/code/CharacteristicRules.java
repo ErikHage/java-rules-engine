@@ -23,7 +23,7 @@ public interface CharacteristicRules {
     _Rule<Beer, String> IS_NOT_HOPPY = new Rule.RuleBuilder<Beer,String>(
             "otherIbu",
             (b) -> b.getIbu() <= 50)
-            .consumer(b -> {})
+            .onMatchHandler(b -> {})
             .nextGroupName(SRM_GROUP)
             .build();
 
@@ -40,7 +40,7 @@ public interface CharacteristicRules {
     _Rule<Beer, String> IS_RED = new Rule.RuleBuilder<Beer,String>(
             "OtherSrm",
             (b) -> b.getSrm() >= 30 && b.getSrm() <=80)
-            .consumer(b -> {})
+            .onMatchHandler(b -> {})
             .groupName(SRM_GROUP)
             .nextGroupName(OG_GROUP)
             .build();
@@ -66,7 +66,7 @@ public interface CharacteristicRules {
     _Rule<Beer, String> IS_DRY = new Rule.RuleBuilder<Beer,String>(
             "OtherOg",
             (b) -> b.getOg() <= 1.075)
-            .consumer(b -> {})
+            .onMatchHandler(b -> {})
             .groupName(OG_GROUP)
             .nextGroupName(ABV_GROUP)
             .build();
@@ -83,7 +83,7 @@ public interface CharacteristicRules {
     _Rule<Beer, String> IS_MID_ALCOHOL = new Rule.RuleBuilder<Beer,String>(
             "otherAbv",
             (b) -> b.getAbv() > 5.0 && b.getAbv() <= 7.5)
-            .consumer(b -> {})
+            .onMatchHandler(b -> {})
             .groupName(ABV_GROUP)
             .build();
 

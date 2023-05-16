@@ -15,11 +15,11 @@ When a rule is evaluated, its predicate is tested against the input. If the resu
 - **\_Rule<I,O> extends Comparable<Rule<I,O>>**  
   - Methods
     - getName(): String
-    - getGroup(): String
+    - getGroupName(): String
     - getPriority(): int
-    - getPredicate(): Predicate<I>
-    - getFunction(): Function<I,O>
-    - getNextGroup(): String
+    - getMatchCondition(): Predicate<I>
+    - getOnMatchHandler(): Function<I,O>
+    - getNextGroupName(): String
 - **\_RuleSet<I,O> extends Iterable<Rule<I,O>>**  
   - Methods
     - getRules(): Set<\_Rule<I,O>>
@@ -41,13 +41,13 @@ When a rule is evaluated, its predicate is tested against the input. If the resu
 
 ### Rules
 
-At minimum a rule requires only 2 inputs: A name and a predicate. The name is mainly for debugging purposes, but is also used as a unique identifier. The predicate is the expression evaluated to determine if this rule is to be applied for the given input I. Optional members are a function or consumer, a priority, a group name, and a next group name. If they are not defined, they will be set to the default values shown below.
+At minimum a rule requires only 2 inputs: A name and a predicate. The name used as a unique identifier. The predicate is the expression evaluated to determine if this rule is to be applied for the given input I. Optional members are a function or consumer, a priority, a group name, and a next group name. If they are not defined, they will be set to the default values shown below.
  
 ##### Function/Consumer
 
 **Default**: `(i) -> Optional.empty()`
 
-When a rule is matched, the result is the invocation of the function or consumer defined. A function will return an output of type Optional\<O>, while a consumer will perform some or no operations on the input and return an Optional.empty().  
+When a rule is matched, the result is the invocation of the onMatchHandler defined. A function will return an output of type Optional\<O>, while a consumer will perform some or no operations on the input and return an Optional.empty().  
 
 ##### Priority
 
@@ -75,7 +75,7 @@ Rules are instantiated by use of a RuleBuilder. The constructor takes a String a
 
 ```java
 _Rule<Integer,Integer> myRule = new Rule.RuleBuilder<Integer,Integer>("myRule", i -> i >= 100)
-    .function(i -> i+2)
+    .onMatchHandler(i -> { return i+2; })
     .build();
 ```
 
@@ -83,8 +83,8 @@ A simple rule that evaluates if an integer is greater than or equal to 100, then
 
 ```java
 _Rule<Integer,Integer> myRule = new Rule.RuleBuilder<Integer,Integer>("myRule", i -> i >= 100)
-     .consumer(i -> System.out.println(i + " is greater than or equals to 100"))
-     .nextGroup("Some other group")
+     .onMatchHandler(i -> System.out.println(i + " is greater than or equals to 100"))
+     .nextGroupName("Some other group")
      .build();
 ```
  

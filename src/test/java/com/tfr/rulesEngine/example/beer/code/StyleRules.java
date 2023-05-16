@@ -14,7 +14,7 @@ public interface StyleRules {
     _Rule<Beer,String> IS_IPA_STYLE = new Rule.RuleBuilder<Beer,String>(
             "IPA_RULE",
             (b) -> b.isStyle(IPA))
-            .onMatchHandler(b -> IPA.getName())
+            .onMatchHandler(b -> { return IPA.getName(); })
             .nextGroupName("Amber")
             .build();
 
@@ -30,7 +30,7 @@ public interface StyleRules {
     _Rule<Beer,String> IS_AMBER_STYLE = new Rule.RuleBuilder<Beer,String>(
             "AMBER_RULE",
             (b) -> b.isStyle(AMBER))
-            .onMatchHandler(b -> AMBER.getName())
+            .onMatchHandler(b -> { return AMBER.getName(); })
             .groupName("Amber")
             .nextGroupName("Red")
             .build();
@@ -46,7 +46,7 @@ public interface StyleRules {
     _Rule<Beer,String> IS_RED_STYLE = new Rule.RuleBuilder<Beer,String>(
             "RED_RULE",
             (b) -> b.isStyle(RED))
-            .onMatchHandler(b -> RED.getName())
+            .onMatchHandler(b -> { return RED.getName(); })
             .groupName("Red")
             .build();
 
