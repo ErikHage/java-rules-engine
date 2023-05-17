@@ -13,7 +13,9 @@ public interface _Rule<I,O> extends Comparable<_Rule<I,O>> {
     String getGroupName();
     int getPriority();
     Predicate<I> getMatchCondition();
+    boolean testMatchCondition(I input);
     Function<I,Optional<O>> getOnMatchHandler();
+    Optional<O> applyOnMatchHandler(I input);
     String getNextGroupName();
 
 }

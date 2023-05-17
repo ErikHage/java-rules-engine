@@ -49,8 +49,19 @@ public class Rule<I,O> implements _Rule<I,O> {
     }
 
     @Override
+    public boolean testMatchCondition(I input) {
+        System.out.println("Testing rule: " + this);
+        return matchCondition.test(input);
+    }
+
+    @Override
     public Function<I,Optional<O>> getOnMatchHandler() {
         return onMatchHandler;
+    }
+
+    @Override
+    public Optional<O> applyOnMatchHandler(I input) {
+        return onMatchHandler.apply(input);
     }
 
     @Override
