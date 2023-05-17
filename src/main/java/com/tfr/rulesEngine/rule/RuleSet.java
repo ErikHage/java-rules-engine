@@ -1,10 +1,11 @@
 package com.tfr.rulesEngine.rule;
 
-import com.google.common.collect.Sets;
-import com.tfr.rulesEngine.exception.RuleException;
+import com.tfr.rulesEngine.exception.DuplicateRuleException;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 
 /**
@@ -15,11 +16,11 @@ public class RuleSet<I,O> implements _RuleSet<I,O> {
     private final Set<_Rule<I,O>> rules;
 
     public RuleSet() {
-        rules = Sets.newTreeSet();
+        rules = new TreeSet<>();
     }
 
     public RuleSet(Set<_Rule<I,O>> rules) {
-        this.rules = Sets.newTreeSet(rules);
+        this.rules = new TreeSet<>(rules);
     }
 
     public Set<_Rule<I,O>> getRules() {
@@ -29,7 +30,7 @@ public class RuleSet<I,O> implements _RuleSet<I,O> {
     @Override
     public boolean add(_Rule<I,O> rule) {
         if(!rules.add(rule)) {
-            throw new RuleException("_RuleSet already contains a rule named: " + rule.getName());
+            throw new DuplicateRuleException("_RuleSet already contains a rule named: " + rule.getName());
         }
         return true;
     }
@@ -59,12 +60,12 @@ public class RuleSet<I,O> implements _RuleSet<I,O> {
         private final Set<_Rule<I,O>> rules;
 
         public RuleSetBuilder() {
-            this.rules = Sets.newHashSet();
+            this.rules = new HashSet<>();
         }
 
         public RuleSetBuilder<I,O> addRule(_Rule<I,O> rule) {
             if(rules.contains(rule)) {
-                throw new RuleException("Set already contains a rule with name " + rule.getName());
+                throw new DuplicateRuleException("Set already contains a rule with name " + rule.getName());
             }
             rules.add(rule);
             return this;

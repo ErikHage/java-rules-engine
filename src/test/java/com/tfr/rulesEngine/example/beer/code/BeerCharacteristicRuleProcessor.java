@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 public class BeerCharacteristicRuleProcessor {
 
-    private _Evaluator<Beer,String> evaluator;
+    private final _Evaluator<Beer,String> evaluator;
 
     public BeerCharacteristicRuleProcessor() {
         _RuleSet<Beer,String> ruleSet = new RuleSet.RuleSetBuilder<Beer,String>()

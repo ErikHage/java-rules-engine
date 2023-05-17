@@ -1,6 +1,6 @@
 package com.tfr.rulesEngine.rule;
 
-import com.tfr.rulesEngine.exception.RuleException;
+import com.tfr.rulesEngine.exception.DuplicateRuleException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
@@ -35,7 +35,7 @@ public class TestRuleSet {
         assertTrue(ruleSet.add(SMALL_INT));
         assertTrue(ruleSet.contains(SMALL_INT));
 
-        assertThrows(RuleException.class, () -> {
+        assertThrows(DuplicateRuleException.class, () -> {
             ruleSet.add(SMALL_INT);
         });
     }
@@ -84,7 +84,7 @@ public class TestRuleSet {
 
     @Test
     public void testBuildSimpleRuleSet_GivenDuplicateRule_ExpectException() {
-        assertThrows(RuleException.class, () -> {
+        assertThrows(DuplicateRuleException.class, () -> {
             new RuleSet.RuleSetBuilder<Integer, String>()
                     .addRule(SMALL_INT)
                     .addRule(SMALL_INT)

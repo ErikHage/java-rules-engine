@@ -1,8 +1,8 @@
 package com.tfr.rulesEngine.evaluate;
 
-import com.google.common.collect.Lists;
 import com.tfr.rulesEngine.rule.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.tfr.rulesEngine.config.Constants.*;
@@ -20,7 +20,7 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
 
     @Override
     public List<O> evaluate(I input) {
-        List<O> output = Lists.newArrayList();
+        List<O> output = new ArrayList<>();
         evaluateGroup(DEFAULT_GROUP, input, output);
         System.out.println("Result: " + output);
         return output;
