@@ -85,12 +85,8 @@ public class Rule<I,O> implements _Rule<I,O> {
 
     @Override
     public String toString() {
-        return "Rule{" +
-                "name='" + name + '\'' +
-                ", group='" + groupName + '\'' +
-                ", priority=" + priority +
-                ", nextGroup='" + nextGroupName + '\'' +
-                '}';
+        return String.format("Rule [name=%s, groupName=%s, priority=%s, nextGroupName=%s]",
+                name, groupName, priority, nextGroupName);
     }
 
     public static class RuleBuilder<I,O> {

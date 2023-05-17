@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
- * Created by Erik on 6/29/2017.
  */
 public class TestBeerCharacteristicRuleProcessor {
 

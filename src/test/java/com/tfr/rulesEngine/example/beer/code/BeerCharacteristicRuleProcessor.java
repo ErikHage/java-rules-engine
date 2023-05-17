@@ -11,7 +11,6 @@ import java.util.Optional;
 
 /**
  *
- * Created by Erik on 6/28/2017.
  */
 public class BeerCharacteristicRuleProcessor {
 
@@ -35,7 +34,7 @@ public class BeerCharacteristicRuleProcessor {
     }
 
     public List<String> process(Beer beer) {
-        List<String> output = evaluator.evaluateMulti(beer);
+        List<String> output = evaluator.evaluate(beer);
         System.out.println(output.toString());
         return output;
     }

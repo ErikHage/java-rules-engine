@@ -5,7 +5,6 @@ import com.tfr.rulesEngine.rule.Rule;
 
 /**
  *
- * Created by Erik on 6/28/2017.
  */
 public interface CharacteristicRules {
 

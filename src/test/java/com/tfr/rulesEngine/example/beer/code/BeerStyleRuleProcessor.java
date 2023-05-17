@@ -9,11 +9,10 @@ import java.util.List;
 
 /**
  *
- * Created by Erik on 6/27/2017.
  */
 public class BeerStyleRuleProcessor {
 
-    private _Evaluator<Beer,String> evaluator;
+    private final _Evaluator<Beer,String> evaluator;
 
     public BeerStyleRuleProcessor() {
         _RuleSet<Beer,String> ruleSet = new RuleSet.RuleSetBuilder<Beer,String>()
@@ -28,7 +27,7 @@ public class BeerStyleRuleProcessor {
     }
 
     public List<String> process(Beer beer) {
-        List<String> output = evaluator.evaluateMulti(beer);
+        List<String> output = evaluator.evaluate(beer);
         System.out.println(output.toString());
         return output;
     }

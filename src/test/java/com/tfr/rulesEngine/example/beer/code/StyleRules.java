@@ -7,7 +7,6 @@ import static com.tfr.rulesEngine.example.beer.code.Styles.*;
 
 /**
  *
- * Created by Erik on 6/27/2017.
  */
 public interface StyleRules {
 

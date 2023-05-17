@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 /**
  *
- * Created by Erik on 6/14/2017.
  */
 public class RuleSet<I,O> implements _RuleSet<I,O> {
 

@@ -10,7 +10,6 @@ import static com.tfr.rulesEngine.config.Constants.*;
 
 /**
  *
- * Created by Erik on 6/29/2017.
  */
 public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
 
@@ -21,8 +20,9 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
     }
 
     @Override
-    public Optional<O> evaluate(I input) {
-        Optional<O> output = evaluateGroup(DEFAULT_GROUP, input);
+    public List<O> evaluate(I input) {
+        List<O> output = Lists.newArrayList();
+        evaluateGroup(DEFAULT_GROUP, input, output);
         System.out.println("Result: " + output);
         return output;
     }
@@ -46,14 +46,6 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
                         return evaluateGroup(rule.getNextGroupName(), input);
                     }
                 });
-    }
-
-    @Override
-    public List<O> evaluateMulti(I input) {
-        List<O> output = Lists.newArrayList();
-        evaluateGroup(DEFAULT_GROUP, input, output);
-        System.out.println("Result: " + output);
-        return output;
     }
 
     private List<O> evaluateGroup(String group, I input, List<O> output) {

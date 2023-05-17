@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
- * Created by Erik on 7/3/2017.
  */
 public class TestRuleMap {
 

@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
- * Created by Erik on 6/25/2017.
  */
 public class TestRuleSet {
 

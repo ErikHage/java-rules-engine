@@ -5,7 +5,6 @@ import java.util.Set;
 
 /**
  *
- * Created by Erik on 7/3/2017.
  */
 public class RuleMap<I,O> extends HashMap<String, RuleSet<I,O>> implements _RuleMap<I,O> {
 
