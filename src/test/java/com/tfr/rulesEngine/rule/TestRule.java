@@ -2,11 +2,12 @@ package com.tfr.rulesEngine.rule;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static com.tfr.rulesEngine.config.Constants.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -23,6 +24,7 @@ public class TestRule {
                 .build();
         assertEquals("name", rule.getName());
         assertEquals(predicateTest, rule.getMatchCondition());
+        assertNotNull(rule.getOnMatchHandler());
         assertEquals(DEFAULT_GROUP, rule.getGroupName());
         assertEquals(TERMINAL_GROUP, rule.getNextGroupName());
         assertEquals(DEFAULT_PRIORITY, rule.getPriority());
@@ -80,5 +82,25 @@ public class TestRule {
         assertEquals("some group", rule.getGroupName());
         assertEquals("another group", rule.getNextGroupName());
         assertEquals(100, rule.getPriority());
+    }
+
+    @Test
+    public void testEquals_GivenRulesWithSameName_ExpectEquals() {
+        _Rule<Integer, Integer> rule1 = new Rule.RuleBuilder<Integer, Integer>("name", predicateTest)
+                .build();
+        _Rule<Integer, Integer> rule2 = new Rule.RuleBuilder<Integer, Integer>("name", predicateTest)
+                .build();
+
+        assertEquals(rule1, rule2);
+    }
+
+    @Test
+    public void testEquals_GivenRulesWithDifferentName_ExpectNotEquals() {
+        _Rule<Integer, Integer> rule1 = new Rule.RuleBuilder<Integer, Integer>("name1", predicateTest)
+                .build();
+        _Rule<Integer, Integer> rule2 = new Rule.RuleBuilder<Integer, Integer>("name2", predicateTest)
+                .build();
+
+        assertNotEquals(rule1, rule2);
     }
 }
