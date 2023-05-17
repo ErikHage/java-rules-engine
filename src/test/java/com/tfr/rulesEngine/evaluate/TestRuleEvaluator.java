@@ -19,7 +19,7 @@ public class TestRuleEvaluator {
         _RuleSet<Integer, String> ruleSet = new RuleSet<>();
         ruleSet.add(SMALL_INT);
         runTest(ruleSet, 1, List.of("int<10"));
-        runTest(ruleSet, 11, null);
+        runTest(ruleSet, 11, List.of());
     }
 
     @Test
@@ -29,7 +29,7 @@ public class TestRuleEvaluator {
         ruleSet.add(MED_INT);
         runTest(ruleSet, 1, List.of("int<10"));
         runTest(ruleSet, 11, List.of("int<100"));
-        runTest(ruleSet, 101, null);
+        runTest(ruleSet, 101, List.of());
     }
 
     @Test
@@ -41,7 +41,7 @@ public class TestRuleEvaluator {
         runTest(ruleSet, 1, List.of("int<10"));
         runTest(ruleSet, 11, List.of("int<100"));
         runTest(ruleSet, 101, List.of("int<1000"));
-        runTest(ruleSet, 1001, null);
+        runTest(ruleSet, 1001, List.of());
     }
 
     @Test
@@ -84,10 +84,7 @@ public class TestRuleEvaluator {
         _Evaluator<I,O> evaluator = new RuleEvaluator<>(ruleSet);
         List<O> output = evaluator.evaluate(input);
 
-        if(output.size() > 0) {
-            assertEquals(expected, output);
-        }
-        //else both empty, so ok
+        assertEquals(expected, output);
     }
 
 

@@ -13,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class TestRule {
 
-    private Predicate<Integer> predicateTest = i -> true;
-    private Function<Integer, Integer> functionTest = i -> 2;
+    private final Predicate<Integer> predicateTest = i -> true;
+    private final Function<Integer, Integer> functionTest = i -> 2;
 
     @Test
     public void testRuleBuilder_GivenRequiredFields_ExpectRule() {
