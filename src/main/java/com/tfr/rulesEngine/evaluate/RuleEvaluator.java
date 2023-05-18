@@ -20,33 +20,38 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
     public EvaluationResult<I,O> evaluate(I input, O output) {
         EvaluationResult<I,O> evaluationResult = new EvaluationResult<>(input, output);
 
-        evaluateGroup(DEFAULT_GROUP, input, evaluationResult);
+        String currentGroup = DEFAULT_GROUP;
+        while (!TERMINAL_GROUP.equals(currentGroup)) {
+            currentGroup = evaluateGroup(currentGroup, input, evaluationResult);
+        }
+
+        System.out.println("Reached TERMINAL match");
 
         return evaluationResult;
     }
 
-    private void evaluateGroup(String group, I input, EvaluationResult<I,O> evaluationResult) {
+    private String evaluateGroup(String group, I input, EvaluationResult<I,O> evaluationResult) {
         System.out.print("Evaluating Group: " + group);
         _RuleSet<I,O> ruleGroup = ruleMap.getRuleGroup(group);
         System.out.println(" , of size " + ruleGroup.getRules().size());
 
-        ruleGroup.stream()
+        String nextGroup = ruleGroup.stream()
                 .filter(r -> r.testMatchCondition(input))
                 .findFirst()
-                .ifPresent(rule -> applyOnMatchHandler(rule, input, evaluationResult));
+                .map(rule -> applyOnMatchHandler(rule, evaluationResult))
+                .orElse(TERMINAL_GROUP);
+
+        System.out.println("Next group : " + nextGroup);
+
+        return nextGroup;
     }
 
-    private void applyOnMatchHandler(_Rule<I,O> rule, I input, EvaluationResult<I,O> evaluationResult) {
+    private String applyOnMatchHandler(_Rule<I,O> rule, EvaluationResult<I,O> evaluationResult) {
         System.out.println("Matched: " + rule);
 
         rule.applyOnMatchHandler(evaluationResult);
 
-        if (TERMINAL_GROUP.equals(rule.getNextGroupName())) {
-            System.out.println("Reached TERMINAL match");
-        } else {
-            System.out.println("Next group : " + rule.getNextGroupName());
-            evaluateGroup(rule.getNextGroupName(), input, evaluationResult);
-        }
+        return rule.getNextGroupName();
     }
 
 }
