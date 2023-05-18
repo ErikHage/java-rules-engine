@@ -36,8 +36,8 @@ public class TestBeerStyleRuleProcessor {
 
     @Test
     public void testProcess_GivenSteamboatPorter_ExpectEmptyOutput() {
-        Beer rosieRedAle = new Beer("Steamboat Porter", 6.4, 23, 150, 1.075);
-        List<String> output = beerStyleRuleProcessor.process(rosieRedAle);
+        Beer steamboatPorter = new Beer("Steamboat Porter", 6.4, 23, 150, 1.075);
+        List<String> output = beerStyleRuleProcessor.process(steamboatPorter);
         assertEquals(0, output.size());
     }
 
