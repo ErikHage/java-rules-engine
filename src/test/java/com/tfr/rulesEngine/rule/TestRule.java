@@ -3,6 +3,7 @@ package com.tfr.rulesEngine.rule;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -15,12 +16,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestRule {
 
     private final Predicate<Integer> predicateTest = i -> true;
-    private final Function<Integer, Integer> functionTest = i -> 2;
+    private final BiConsumer<Integer, Integer> consumerTest = (i,o) -> {};
 
     @Test
     public void testRuleBuilder_GivenRequiredFields_ExpectRule() {
         _Rule<Integer, Integer> rule = new Rule.RuleBuilder<Integer, Integer>("name", predicateTest)
-                .onMatchHandler(functionTest)
+                .onMatchHandler(consumerTest)
                 .build();
         assertEquals("name", rule.getName());
         assertEquals(predicateTest, rule.getMatchCondition());
@@ -33,7 +34,7 @@ public class TestRule {
     @Test
     public void testRuleBuilder_GivenRequiredFieldsAndPriority_ExpectRule() {
         _Rule<Integer, Integer> rule = new Rule.RuleBuilder<Integer, Integer>("name", predicateTest)
-                .onMatchHandler(functionTest)
+                .onMatchHandler(consumerTest)
                 .priority(100)
                 .build();
         assertEquals("name", rule.getName());
@@ -46,7 +47,7 @@ public class TestRule {
     @Test
     public void testRuleBuilder_GivenRequiredFieldsAndGroup_ExpectRule() {
         _Rule<Integer, Integer> rule = new Rule.RuleBuilder<Integer, Integer>("name", predicateTest)
-                .onMatchHandler(functionTest)
+                .onMatchHandler(consumerTest)
                 .groupName("some group")
                 .build();
         assertEquals("name", rule.getName());
@@ -59,7 +60,7 @@ public class TestRule {
     @Test
     public void testRuleBuilder_GivenRequiredFieldsAndNextGroup_ExpectRule() {
         _Rule<Integer, Integer> rule = new Rule.RuleBuilder<Integer, Integer>("name", predicateTest)
-                .onMatchHandler(functionTest)
+                .onMatchHandler(consumerTest)
                 .nextGroupName("another group")
                 .build();
         assertEquals("name", rule.getName());
@@ -72,7 +73,7 @@ public class TestRule {
     @Test
     public void testRuleBuilder_GivenRequiredFieldsAndOptionalFields_ExpectRule() {
         _Rule<Integer, Integer> rule = new Rule.RuleBuilder<Integer, Integer>("name", predicateTest)
-                .onMatchHandler(functionTest)
+                .onMatchHandler(consumerTest)
                 .groupName("some group")
                 .priority(100)
                 .nextGroupName("another group")

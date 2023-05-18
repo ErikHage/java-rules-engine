@@ -1,8 +1,9 @@
 package com.tfr.rulesEngine.rule;
 
-import java.util.Optional;
+import com.tfr.rulesEngine.data.EvaluationResult;
+
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static com.tfr.rulesEngine.config.Constants.*;
@@ -16,10 +17,10 @@ public class Rule<I,O> implements _Rule<I,O> {
     protected final String groupName;
     protected final int priority;
     protected final Predicate<I> matchCondition;
-    protected final Function<I,Optional<O>> onMatchHandler;
+    protected final Consumer<EvaluationResult<I,O>> onMatchHandler;
     protected final String nextGroupName;
 
-    public Rule(String name, String groupName, int priority, Predicate<I> matchCondition, Function<I,Optional<O>> onMatchHandler, String nextGroupName) {
+    private Rule(String name, String groupName, int priority, Predicate<I> matchCondition, Consumer<EvaluationResult<I,O>> onMatchHandler, String nextGroupName) {
         this.name = name;
         this.groupName = groupName;
         this.priority = priority;
@@ -55,13 +56,13 @@ public class Rule<I,O> implements _Rule<I,O> {
     }
 
     @Override
-    public Function<I,Optional<O>> getOnMatchHandler() {
+    public Consumer<EvaluationResult<I,O>> getOnMatchHandler() {
         return onMatchHandler;
     }
 
     @Override
-    public Optional<O> applyOnMatchHandler(I input) {
-        return onMatchHandler.apply(input);
+    public void applyOnMatchHandler(EvaluationResult<I,O> evaluationResult) {
+        onMatchHandler.accept(evaluationResult);
     }
 
     @Override
@@ -106,7 +107,7 @@ public class Rule<I,O> implements _Rule<I,O> {
         private final Predicate<I> matchCondition;
         private String groupName;
         private int priority;
-        private Function<I,Optional<O>> onMatchHandler;
+        private Consumer<EvaluationResult<I,O>> onMatchHandler;
         private String nextGroupName;
 
         public RuleBuilder(String name, Predicate<I> matchCondition) {
@@ -115,19 +116,12 @@ public class Rule<I,O> implements _Rule<I,O> {
             this.priority = DEFAULT_PRIORITY;
             this.matchCondition = matchCondition;
             this.nextGroupName = TERMINAL_GROUP;
-            this.onMatchHandler = (I i) -> Optional.empty();
+            this.onMatchHandler = (EvaluationResult<I,O> evaluationResult) -> {};
         }
 
-        public RuleBuilder<I,O> onMatchHandler(Function<I,O> onMatchHandler) {
-            this.onMatchHandler = (I i) ->
-                    Optional.ofNullable(onMatchHandler.apply(i));
-            return this;
-        }
-
-        public RuleBuilder<I,O> onMatchHandler(Consumer<I> onMatchHandler) {
-            this.onMatchHandler = (I i) -> {
-                onMatchHandler.accept(i);
-                return Optional.empty();
+        public RuleBuilder<I,O> onMatchHandler(BiConsumer<I,O> onMatchHandler) {
+            this.onMatchHandler = (EvaluationResult<I,O> evaluationResult) -> {
+                onMatchHandler.accept(evaluationResult.getFacts().facts(), evaluationResult.getKnowledge().value());
             };
             return this;
         }

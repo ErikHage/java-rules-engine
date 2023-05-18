@@ -1,12 +1,11 @@
 package com.tfr.rulesEngine.evaluate;
 
-import java.util.List;
-import java.util.Optional;
+import com.tfr.rulesEngine.data.EvaluationResult;
 
 /**
  *
  */
 public interface _Evaluator<I,O> {
 
-    List<O> evaluate(I input);
+    EvaluationResult<I,O> evaluate(I input, O output);
 }

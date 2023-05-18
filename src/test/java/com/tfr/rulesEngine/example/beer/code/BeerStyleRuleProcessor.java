@@ -1,10 +1,12 @@
 package com.tfr.rulesEngine.example.beer.code;
 
+import com.tfr.rulesEngine.data.EvaluationResult;
 import com.tfr.rulesEngine.evaluate._Evaluator;
 import com.tfr.rulesEngine.evaluate.RuleEvaluator;
 import com.tfr.rulesEngine.rule.RuleSet;
 import com.tfr.rulesEngine.rule._RuleSet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,10 +14,10 @@ import java.util.List;
  */
 public class BeerStyleRuleProcessor {
 
-    private final _Evaluator<Beer,String> evaluator;
+    private final _Evaluator<Beer,List<String>> evaluator;
 
     public BeerStyleRuleProcessor() {
-        _RuleSet<Beer,String> ruleSet = new RuleSet.RuleSetBuilder<Beer,String>()
+        _RuleSet<Beer,List<String>> ruleSet = new RuleSet.RuleSetBuilder<Beer,List<String>>()
                 .addRule(StyleRules.IS_IPA_STYLE)
                 .addRule(StyleRules.IS_NOT_IPA_STYLE)
                 .addRule(StyleRules.IS_AMBER_STYLE)
@@ -27,9 +29,9 @@ public class BeerStyleRuleProcessor {
     }
 
     public List<String> process(Beer beer) {
-        List<String> output = evaluator.evaluate(beer);
-        System.out.println(output.toString());
-        return output;
+        EvaluationResult<Beer,List<String>> result = evaluator.evaluate(beer, new ArrayList<>());
+
+        return result.getKnowledge().value();
     }
 
 }
