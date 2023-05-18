@@ -15,8 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class TestBeerStyleRuleProcessor {
 
-    //TODO failing due to lack of catch-all rules to point to next group
-
     private final BeerStyleRuleProcessor beerStyleRuleProcessor = new BeerStyleRuleProcessor();
 
     @Test

@@ -17,59 +17,59 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class TestRuleEvaluator {
 
-//    @Test
-//    public void testEvaluate_GivenSingleMatch_GivenOneRuleSingle() {
-//        _RuleSet<Integer, String> ruleSet = new RuleSet<>();
-//        ruleSet.add(SMALL_INT);
-//        runTest(ruleSet, 1, List.of("int<10"));
-//        runTest(ruleSet, 11, List.of());
-//    }
-//
-//    @Test
-//    public void testEvaluate_GivenSingleMatch_GivenTwoRules() {
-//        _RuleSet<Integer, String> ruleSet = new RuleSet<>();
-//        ruleSet.add(SMALL_INT);
-//        ruleSet.add(MED_INT);
-//        runTest(ruleSet, 1, List.of("int<10"));
-//        runTest(ruleSet, 11, List.of("int<100"));
-//        runTest(ruleSet, 101, List.of());
-//    }
-//
-//    @Test
-//    public void testEvaluate_GivenSingleMatch_GivenThreeRules() {
-//        _RuleSet<Integer, String> ruleSet = new RuleSet<>();
-//        ruleSet.add(SMALL_INT);
-//        ruleSet.add(MED_INT);
-//        ruleSet.add(LARGE_INT);
-//        runTest(ruleSet, 1, List.of("int<10"));
-//        runTest(ruleSet, 11, List.of("int<100"));
-//        runTest(ruleSet, 101, List.of("int<1000"));
-//        runTest(ruleSet, 1001, List.of());
-//    }
-//
-//    @Test
-//    public void testEvaluate_GivenSingleMatch_GivenFourRules() {
-//        _RuleSet<Integer, String> ruleSet = new RuleSet<>();
-//        ruleSet.add(SMALL_INT);
-//        ruleSet.add(MED_INT);
-//        ruleSet.add(LARGE_INT);
-//        ruleSet.add(HUGE_INT);
-//        runTest(ruleSet, 1, List.of("int<10"));
-//        runTest(ruleSet, 11, List.of("int<100"));
-//        runTest(ruleSet, 101, List.of("int<1000"));
-//        runTest(ruleSet, 1001, List.of("int>=1000"));
-//    }
-//
-//    @Test
-//    public void testEvaluate_GivenSingleMatch_GivenAddingRulesWithHigherPriority_ExpectChangeInOutput() {
-//        _RuleSet<Integer, String> ruleSet = new RuleSet<>();
-//        ruleSet.add(LARGE_INT);
-//        runTest(ruleSet, 1, List.of("int<1000"));
-//        ruleSet.add(MED_INT);
-//        runTest(ruleSet, 1, List.of("int<100"));
-//        ruleSet.add(SMALL_INT);
-//        runTest(ruleSet, 1, List.of("int<10"));
-//    }
+    @Test
+    public void testEvaluate_GivenSingleMatch_GivenOneRuleSingle() {
+        _RuleSet<Integer, List<String>> ruleSet = new RuleSet<>();
+        ruleSet.add(SMALL_INT);
+        runTest(ruleSet, 1, new ArrayList<>(), List.of("int<10"));
+        runTest(ruleSet, 11, new ArrayList<>(), List.of());
+    }
+
+    @Test
+    public void testEvaluate_GivenSingleMatch_GivenTwoRules() {
+        _RuleSet<Integer, List<String>> ruleSet = new RuleSet<>();
+        ruleSet.add(SMALL_INT);
+        ruleSet.add(MED_INT);
+        runTest(ruleSet, 1, new ArrayList<>(), List.of("int<10"));
+        runTest(ruleSet, 11, new ArrayList<>(), List.of("int<100"));
+        runTest(ruleSet, 101, new ArrayList<>(), List.of());
+    }
+
+    @Test
+    public void testEvaluate_GivenSingleMatch_GivenThreeRules() {
+        _RuleSet<Integer, List<String>> ruleSet = new RuleSet<>();
+        ruleSet.add(SMALL_INT);
+        ruleSet.add(MED_INT);
+        ruleSet.add(LARGE_INT);
+        runTest(ruleSet, 1, new ArrayList<>(), List.of("int<10"));
+        runTest(ruleSet, 11, new ArrayList<>(), List.of("int<100"));
+        runTest(ruleSet, 101, new ArrayList<>(), List.of("int<1000"));
+        runTest(ruleSet, 1001, new ArrayList<>(), List.of());
+    }
+
+    @Test
+    public void testEvaluate_GivenSingleMatch_GivenFourRules() {
+        _RuleSet<Integer, List<String>> ruleSet = new RuleSet<>();
+        ruleSet.add(SMALL_INT);
+        ruleSet.add(MED_INT);
+        ruleSet.add(LARGE_INT);
+        ruleSet.add(HUGE_INT);
+        runTest(ruleSet, 1, new ArrayList<>(), List.of("int<10"));
+        runTest(ruleSet, 11, new ArrayList<>(), List.of("int<100"));
+        runTest(ruleSet, 101, new ArrayList<>(), List.of("int<1000"));
+        runTest(ruleSet, 1001, new ArrayList<>(), List.of("int>=1000"));
+    }
+
+    @Test
+    public void testEvaluate_GivenSingleMatch_GivenAddingRulesWithHigherPriority_ExpectChangeInOutput() {
+        _RuleSet<Integer, List<String>> ruleSet = new RuleSet<>();
+        ruleSet.add(LARGE_INT);
+        runTest(ruleSet, 1, new ArrayList<>(), List.of("int<1000"));
+        ruleSet.add(MED_INT);
+        runTest(ruleSet, 1, new ArrayList<>(), List.of("int<100"));
+        ruleSet.add(SMALL_INT);
+        runTest(ruleSet, 1, new ArrayList<>(), List.of("int<10"));
+    }
 
     @Test
     public void testEvaluate_GivenMultipleGroups_Given10_Expect() {
@@ -90,6 +90,4 @@ public class TestRuleEvaluator {
         assertEquals(input, result.getFacts().facts());
         assertEquals(expected, result.getKnowledge().value());
     }
-
-
 }
