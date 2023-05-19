@@ -9,10 +9,7 @@ public record AuditEntry(String ruleSetName, String ruleName, Boolean wasMatched
     public String toString() {
         if (wasMatched != null) {
             return String.format(MATCH_FORMAT, ruleSetName, ruleName, wasMatched);
-        } else if (knowledgeState != null) {
-            return String.format(KNOWLEDGE_FORMAT, ruleSetName, ruleName, knowledgeState);
         }
-
-        return null;
+        return String.format(KNOWLEDGE_FORMAT, ruleSetName, ruleName, knowledgeState);
     }
 }
