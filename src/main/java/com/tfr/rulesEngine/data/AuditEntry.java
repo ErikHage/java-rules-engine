@@ -4,8 +4,7 @@ import java.util.Objects;
 
 public final class AuditEntry {
 
-    private static final String MATCH_FORMAT = "[%s][%s] match:%s";
-    private static final String KNOWLEDGE_FORMAT = "[%s][%s] knowledge:%s";
+    private static final String TO_STRING_FORMAT = "[group:%s][rule:%s] match:%s knowledge:%s";
 
     private final String ruleSetName;
     private final String ruleName;
@@ -25,10 +24,7 @@ public final class AuditEntry {
 
     @Override
     public String toString() {
-        if (wasMatched != null) {
-            return String.format(MATCH_FORMAT, ruleSetName, ruleName, wasMatched);
-        }
-        return String.format(KNOWLEDGE_FORMAT, ruleSetName, ruleName, knowledgeState);
+        return String.format(TO_STRING_FORMAT, ruleSetName, ruleName, wasMatched, knowledgeState);
     }
 
     public String ruleSetName() {
