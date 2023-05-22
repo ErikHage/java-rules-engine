@@ -57,7 +57,9 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
     private boolean testMatchCondition(_Rule<I,O> rule, EvaluationResult<I,O> evaluationResult) {
         boolean isMatch = rule.testMatchCondition(evaluationResult.getFacts().value());
 
-        evaluationResult.appendAudit(rule, isMatch);
+        if (!isMatch) {
+            evaluationResult.appendNotMatchedAudit(rule);
+        }
 
         return isMatch;
     }
@@ -66,7 +68,7 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
         System.out.println("Matched: " + rule);
 
         rule.applyOnMatchHandler(evaluationResult);
-        evaluationResult.appendAudit(rule, evaluationResult.getKnowledge());
+        evaluationResult.appendMatchedAudit(rule, evaluationResult.getKnowledge());
 
         return rule.getNextGroupName();
     }

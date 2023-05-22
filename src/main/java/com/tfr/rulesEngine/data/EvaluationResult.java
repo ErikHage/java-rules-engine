@@ -16,12 +16,12 @@ public class EvaluationResult<I,O> {
         auditTrail = new LinkedList<>();
     }
 
-    public void appendAudit(_Rule<I,O> rule, boolean isMatch) {
-        auditTrail.add(new AuditEntry(rule.getGroupName(), rule.getName(), isMatch, null));
+    public void appendNotMatchedAudit(_Rule<I,O> rule) {
+        auditTrail.add(new AuditEntry(rule.getGroupName(), rule.getName(), false, null));
     }
 
-    public void appendAudit(_Rule<I,O> rule, Knowledge<O> knowledge) {
-        auditTrail.add(new AuditEntry(rule.getGroupName(), rule.getName(), null, knowledge.toAuditString()));
+    public void appendMatchedAudit(_Rule<I,O> rule, Knowledge<O> knowledge) {
+        auditTrail.add(new AuditEntry(rule.getGroupName(), rule.getName(), true, knowledge.toAuditString()));
     }
 
     public Facts<I> getFacts() {

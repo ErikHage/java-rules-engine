@@ -100,10 +100,8 @@ public class TestRuleEvaluator {
         var expectedAuditTrail = new ArrayList<AuditEntry>();
 
         expectedAuditTrail.add(new AuditEntry(DEFAULT_GROUP, TRIPLE_INT.getName(), notMatched, null));
-        expectedAuditTrail.add(new AuditEntry(DEFAULT_GROUP, DOUBLE_INT.getName(), matched, null));
-        expectedAuditTrail.add(new AuditEntry(DEFAULT_GROUP, DOUBLE_INT.getName(), null, "[22]"));
-        expectedAuditTrail.add(new AuditEntry("set2", PLUS_5.getName(), matched, null));
-        expectedAuditTrail.add(new AuditEntry("set2", PLUS_5.getName(), null, "[22, 16]"));
+        expectedAuditTrail.add(new AuditEntry(DEFAULT_GROUP, DOUBLE_INT.getName(), matched, "[22]"));
+        expectedAuditTrail.add(new AuditEntry("set2", PLUS_5.getName(), matched, "[22, 16]"));
 
         assertEquals(11, result.getFacts().value());
         assertEquals(List.of(22, 16), result.getKnowledge().value());
