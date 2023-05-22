@@ -121,7 +121,7 @@ public class Rule<I,O> implements _Rule<I,O> {
 
         public RuleBuilder<I,O> onMatchHandler(BiConsumer<I,O> onMatchHandler) {
             this.onMatchHandler = (EvaluationResult<I,O> evaluationResult) -> {
-                onMatchHandler.accept(evaluationResult.getFacts().facts(), evaluationResult.getKnowledge().value());
+                onMatchHandler.accept(evaluationResult.getFacts().value(), evaluationResult.getKnowledge().value());
             };
             return this;
         }

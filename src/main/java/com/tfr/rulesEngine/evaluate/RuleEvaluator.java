@@ -55,7 +55,7 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
     }
 
     private boolean testMatchCondition(_Rule<I,O> rule, EvaluationResult<I,O> evaluationResult) {
-        boolean isMatch = rule.testMatchCondition(evaluationResult.getFacts().facts());
+        boolean isMatch = rule.testMatchCondition(evaluationResult.getFacts().value());
 
         evaluationResult.appendAudit(rule, isMatch);
 
