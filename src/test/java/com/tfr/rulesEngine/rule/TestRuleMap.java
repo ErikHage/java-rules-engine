@@ -31,7 +31,7 @@ public class TestRuleMap {
     @Test
     public void testGetRuleGroup_GivenDefaultSet_ExpectTwoRules() {
         _RuleSet<Integer, List<Integer>> defaultSet = ruleMap.getRuleGroup(DEFAULT_GROUP);
-        assertEquals(2, defaultSet.getRules().size());
+        assertEquals(2, defaultSet.size());
         assertTrue(defaultSet.contains(DOUBLE_INT));
         assertTrue(defaultSet.contains(TRIPLE_INT));
     }
@@ -39,14 +39,14 @@ public class TestRuleMap {
     @Test
     public void testGetRuleGroup_GivenSet2_ExpectOneRule() {
         _RuleSet<Integer, List<Integer>> set2 = ruleMap.getRuleGroup("set2");
-        assertEquals(1, set2.getRules().size());
+        assertEquals(1, set2.size());
         assertTrue(set2.contains(PLUS_5));
     }
 
     @Test
     public void testGetRuleGroup_GivenSet3_ExpectOneRule() {
         _RuleSet<Integer, List<Integer>> set3 = ruleMap.getRuleGroup("set3");
-        assertEquals(1, set3.getRules().size());
+        assertEquals(1, set3.size());
         assertTrue(set3.contains(PLUS_10));
     }
 

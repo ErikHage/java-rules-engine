@@ -23,10 +23,6 @@ public class RuleSet<I,O> implements _RuleSet<I,O> {
         this.rules = new TreeSet<>(rules);
     }
 
-    public Set<_Rule<I,O>> getRules() {
-        return rules;
-    }
-
     @Override
     public boolean add(_Rule<I,O> rule) {
         if(!rules.add(rule)) {
@@ -43,6 +39,11 @@ public class RuleSet<I,O> implements _RuleSet<I,O> {
     @Override
     public boolean remove(_Rule<I,O> rule) {
         return rules.remove(rule);
+    }
+
+    @Override
+    public int size() {
+        return rules.size();
     }
 
     @Override

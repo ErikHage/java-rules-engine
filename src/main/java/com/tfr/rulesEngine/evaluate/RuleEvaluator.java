@@ -41,7 +41,7 @@ public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
     private String evaluateGroup(String group, EvaluationResult<I,O> evaluationResult) {
         System.out.print("Evaluating Group: " + group);
         _RuleSet<I,O> ruleGroup = ruleMap.getRuleGroup(group);
-        System.out.println(" , of size " + ruleGroup.getRules().size());
+        System.out.println(" , of size " + ruleGroup.size());
 
         String nextGroup = ruleGroup.stream()
                 .filter(r -> testMatchCondition(r, evaluationResult))
