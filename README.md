@@ -4,8 +4,8 @@
 ## Definitions
 **Rule**: An object composed of a name, priority, predicate, and output function.  
 **Match**: When the predicate condition of a Rule is met (returns true)  
-**RuleSet**: An iterable collection of Rule objects
-**RuleMap**: Maps a group name to a RuleSet
+**RuleSet**: An iterable collection of Rule objects  
+**RuleMap**: Maps a group name to a RuleSet  
 **Evaluator**: Uses a Rule/RuleSet to Evaluate an input and produce an output  
 
 ## Evaluating Rules
@@ -16,10 +16,12 @@ When a rule is evaluated, its predicate is tested against the input. If the resu
   - Methods
     - getName(): String
     - getGroupName(): String
+    - getNextGroupName(): String
     - getPriority(): int
     - getMatchCondition(): Predicate<I>
+    - testMatchCondition(): boolean
     - getOnMatchHandler(): Function<I,O>
-    - getNextGroupName(): String
+    - applyOnMatchHandler(): void
 - **\_RuleSet<I,O> extends Iterable<Rule<I,O>>**  
   - Methods
     - getRules(): Set<\_Rule<I,O>>
@@ -34,8 +36,7 @@ When a rule is evaluated, its predicate is tested against the input. If the resu
     - getNumberOfGroups: int
 - **\_Evaluator<I,O>**  
   - Methods
-    - evaluate(I input) : Optional<O>
-    - evaluateMulti(I input) : List<O>
+    - evaluate(I input, O output) : EvaluationResult<I,O>
     
 ## Using this library
 
