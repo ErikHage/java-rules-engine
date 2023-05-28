@@ -11,11 +11,11 @@ import static com.tfr.rulesEngine.config.Constants.*;
 /**
  *
  */
-public class RuleEvaluator<I,O> implements _Evaluator<I,O> {
+public class MatchFirstRuleEvaluator<I,O> implements _Evaluator<I,O> {
 
     private final _RuleMap<I,O> ruleMap;
 
-    public RuleEvaluator(_RuleSet<I,O> ruleSet) {
+    protected MatchFirstRuleEvaluator(_RuleSet<I,O> ruleSet) {
         ruleMap = new RuleMap<>(ruleSet);
     }
 

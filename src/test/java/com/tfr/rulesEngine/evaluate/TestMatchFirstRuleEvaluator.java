@@ -1,7 +1,6 @@
 package com.tfr.rulesEngine.evaluate;
 
 import com.tfr.rulesEngine.data.AuditEntry;
-import com.tfr.rulesEngine.data.EvaluationResult;
 import com.tfr.rulesEngine.rule._RuleSet;
 import com.tfr.rulesEngine.rule.RuleSet;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  *
  */
-public class TestRuleEvaluator {
+public class TestMatchFirstRuleEvaluator {
 
     private final boolean notMatched = false;
     private final boolean matched = true;
@@ -95,7 +94,7 @@ public class TestRuleEvaluator {
         ruleSet.add(PLUS_5);
         ruleSet.add(PLUS_10);
 
-        var evaluator = new RuleEvaluator<>(ruleSet);
+        var evaluator = new MatchFirstRuleEvaluator<>(ruleSet);
         var result = evaluator.evaluate(11, new ArrayList<>());
         var expectedAuditTrail = new ArrayList<AuditEntry>();
 
@@ -109,7 +108,7 @@ public class TestRuleEvaluator {
     }
 
     private <I,O> void runTest(_RuleSet<I,O> ruleSet, I input, O output, O expected) {
-        var evaluator = new RuleEvaluator<>(ruleSet);
+        var evaluator = new MatchFirstRuleEvaluator<>(ruleSet);
         var result = evaluator.evaluate(input, output);
 
         assertEquals(input, result.getFacts().value());

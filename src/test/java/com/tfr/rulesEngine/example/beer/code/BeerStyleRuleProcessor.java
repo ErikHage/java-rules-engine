@@ -1,8 +1,10 @@
 package com.tfr.rulesEngine.example.beer.code;
 
 import com.tfr.rulesEngine.data.EvaluationResult;
+import com.tfr.rulesEngine.evaluate.EvaluatorBuilder;
+import com.tfr.rulesEngine.evaluate.MatchingStrategy;
 import com.tfr.rulesEngine.evaluate._Evaluator;
-import com.tfr.rulesEngine.evaluate.RuleEvaluator;
+import com.tfr.rulesEngine.evaluate.MatchFirstRuleEvaluator;
 import com.tfr.rulesEngine.rule.RuleSet;
 import com.tfr.rulesEngine.rule._RuleSet;
 
@@ -25,7 +27,11 @@ public class BeerStyleRuleProcessor {
                 .addRule(StyleRules.IS_RED_STYLE)
                 .addRule(StyleRules.IS_NOT_RED_STYLE)
                 .build();
-        this.evaluator = new RuleEvaluator<>(ruleSet);
+
+        this.evaluator = new EvaluatorBuilder<Beer, List<String>>()
+                .withMatchingStrategy(MatchingStrategy.MATCH_FIRST)
+                .withRules(ruleSet)
+                .build();
     }
 
     public List<String> process(Beer beer) {
