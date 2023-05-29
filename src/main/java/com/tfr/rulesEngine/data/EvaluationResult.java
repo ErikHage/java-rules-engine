@@ -35,4 +35,11 @@ public class EvaluationResult<I,O> {
     public List<AuditEntry> getAuditTrail() {
         return auditTrail;
     }
+
+    public int getNumberOfMatches() {
+        return auditTrail.stream()
+                .filter(AuditEntry::wasMatched)
+                .toList()
+                .size();
+    }
 }

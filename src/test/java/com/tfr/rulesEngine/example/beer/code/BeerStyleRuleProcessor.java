@@ -4,7 +4,6 @@ import com.tfr.rulesEngine.data.EvaluationResult;
 import com.tfr.rulesEngine.evaluate.EvaluatorBuilder;
 import com.tfr.rulesEngine.evaluate.MatchingStrategy;
 import com.tfr.rulesEngine.evaluate._Evaluator;
-import com.tfr.rulesEngine.evaluate.MatchFirstRuleEvaluator;
 import com.tfr.rulesEngine.rule.RuleSet;
 import com.tfr.rulesEngine.rule._RuleSet;
 
