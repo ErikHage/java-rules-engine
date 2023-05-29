@@ -18,10 +18,6 @@ public final class AuditEntry {
         this.knowledgeState = knowledgeState;
     }
 
-    public void setKnowledgeState(String knowledgeState) {
-        this.knowledgeState = knowledgeState;
-    }
-
     @Override
     public String toString() {
         return String.format(TO_STRING_FORMAT, ruleSetName, ruleName, wasMatched, knowledgeState);
