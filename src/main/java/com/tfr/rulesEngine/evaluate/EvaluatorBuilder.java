@@ -30,10 +30,10 @@ public class EvaluatorBuilder<I,O> {
 
         switch (matchingStrategy) {
             case MATCH_FIRST -> {
-                return new MatchAllRuleEvaluator<>(this.ruleSet);
+                return new MatchFirstRuleEvaluator<>(this.ruleSet);
             }
             case MATCH_ALL -> {
-                return new MatchFirstRuleEvaluator<>(this.ruleSet);
+                return new MatchAllRuleEvaluator<>(this.ruleSet);
             }
             default -> throw new InvalidParameterException("Provided strategy invalid: " + matchingStrategy);
         }
