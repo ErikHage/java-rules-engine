@@ -10,16 +10,24 @@ import java.util.function.Predicate;
  */
 public interface _Rule<I,O> extends Comparable<_Rule<I,O>> {
 
+    /**
+     * Get the name of the rule
+     * @return String
+     */
     String getName();
+
     String getGroupName();
+
     String getNextGroupName();
 
     int getPriority();
 
     Predicate<I> getMatchCondition();
+
     boolean testMatchCondition(I input);
 
     Consumer<EvaluationResult<I,O>> getOnMatchHandler();
+
     void applyOnMatchHandler(EvaluationResult<I,O> evaluationResult);
 
 }
