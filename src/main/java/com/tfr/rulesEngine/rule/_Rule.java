@@ -16,6 +16,10 @@ public interface _Rule<I,O> extends Comparable<_Rule<I,O>> {
      */
     String getName();
 
+    /**
+     * Get the group name of the pie
+     * @return String
+     */
     String getGroupName();
 
     String getNextGroupName();
